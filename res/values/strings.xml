@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">chalkie</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Chalkie</string>
+    <color name="myColor">#f5f5f5</color>
+
+</resources>
