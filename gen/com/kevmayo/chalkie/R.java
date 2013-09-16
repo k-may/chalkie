@@ -88,7 +88,7 @@ containing a value of this type.
 <tr><td><code>left</code></td><td>0</td><td></td></tr>
 <tr><td><code>right</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name android:labelPosition
+          @attr name com.kevmayo.chalkie:labelPosition
         */
         public static final int ChalkBoard_labelPosition = 1;
         /**
@@ -102,7 +102,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:showText
+          @attr name com.kevmayo.chalkie:showText
         */
         public static final int ChalkBoard_showText = 0;
     };
