@@ -1,6 +1,6 @@
 package com.kevmayo.chalkie.events;
 
-import com.kevmayo.chalkie.IManager;
+import com.kevmayo.chalkie.old.IManager;
 
 import android.graphics.Bitmap;
 
