@@ -1,7 +1,4 @@
 package com.kevmayo.chalkie.framework;
-
-import com.kevmayo.chalkie.MainActivity;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -57,7 +54,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 			}
 			
 			game.getCurrentScreen().update(deltaTime);
-			game.getCurrentScreen().paint(deltaTime);
+			game.getCurrentScreen().draw(game.getGraphics());
 			
 			Canvas canvas = holder.lockCanvas();
 			canvas.getClipBounds(dstRect);

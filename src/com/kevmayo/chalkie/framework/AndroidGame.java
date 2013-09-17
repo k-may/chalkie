@@ -9,6 +9,7 @@ import android.graphics.Bitmap.Config;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -27,6 +28,8 @@ public abstract class AndroidGame extends Activity implements Game {
 	FileIO fileIO;
 	Screen screen;
 	WakeLock wakeLock;
+	public static int SCREEN_WIDTH;
+	public static int SCREEN_HEIGHT;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,22 +39,34 @@ public abstract class AndroidGame extends Activity implements Game {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-		int frameBufferWidth = isPortrait ? 800 : 1280;
-		int frameBufferHeight = isPortrait ? 1280 : 800;
-		Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
-				frameBufferHeight, Config.RGB_565);
-
+		/*
+		 * boolean isPortrait = getResources().getConfiguration().orientation ==
+		 * Configuration.ORIENTATION_PORTRAIT; int frameBufferWidth = isPortrait
+		 * ? 800 : 1280; int frameBufferHeight = isPortrait ? 1280 : 800; Bitmap
+		 * frameBuffer = Bitmap.createBitmap(frameBufferWidth,
+		 * frameBufferHeight, Config.RGB_565);
+		 */
+		
 		Point size = new Point();
 		getWindowManager().getDefaultDisplay().getSize(size);
-		float scaleX = (float) frameBufferWidth / size.x;
-		float scaleY = (float) frameBufferHeight / size.y;
+
+		// todo move this to congifuration change event
+		SCREEN_WIDTH = size.x;
+		SCREEN_HEIGHT = size.y;
+
+		trace("SCREEN DIMENSIONS : " + size.x + " / " + size.y);
+		/*
+		 * float scaleX = (float) frameBufferWidth / size.x; float scaleY =
+		 * (float) frameBufferHeight / size.y;
+		 */
+		Bitmap frameBuffer = Bitmap
+				.createBitmap(size.x, size.y, Config.RGB_565);
 
 		renderView = new AndroidFastRenderView(this, frameBuffer);
 		graphics = new AndroidGraphics(getAssets(), frameBuffer);
 		fileIO = new AndroidFileIO(this);
 		audio = new AndroidAudio(this);
-		input = new AndroidInput(this, renderView, scaleX, scaleY);
+		input = new AndroidInput(this, renderView, 1f, 1f);
 		screen = getInitScreen();
 		setContentView(renderView);
 
@@ -101,6 +116,8 @@ public abstract class AndroidGame extends Activity implements Game {
 
 	@Override
 	public void setScreen(Screen screen) {
+		trace("set screen  : " + screen.getName());
+
 		if (screen == null)
 			throw new IllegalArgumentException("Screen must not be null");
 
@@ -112,7 +129,10 @@ public abstract class AndroidGame extends Activity implements Game {
 	}
 
 	public Screen getCurrentScreen() {
-
 		return screen;
+	}
+
+	private void trace(String msg) {
+		Log.i("Game", msg);
 	}
 }

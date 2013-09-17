@@ -1,23 +1,22 @@
 package com.kevmayo.chalkie;
 
 import com.kevmayo.chalkie.interfaces.Game;
+import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Screen;
+import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 
 public class LoadingScreen extends Screen {
 
-	public LoadingScreen(Game game){
-		super(game);
+	public LoadingScreen(Game game) {
+		super(game, "home");
 	}
+
 	@Override
 	public void update(float time) {
-		// TODO Auto-generated method stub
+		Graphics g = game.getGraphics();
+		Assets.startImage = g.newImage("start.jpg", ImageFormat.RGB565);
 
-	}
-
-	@Override
-	public void paint(float time) {
-		// TODO Auto-generated method stub
-
+		game.setScreen(new HomeScreen(game));
 	}
 
 	@Override

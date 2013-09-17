@@ -1,13 +1,24 @@
 package com.kevmayo.chalkie;
 
+import android.graphics.Point;
+
+import com.kevmayo.chalkie.framework.TextureDO;
+import com.kevmayo.chalkie.framework.TextureInfo;
 import com.kevmayo.chalkie.interfaces.Game;
+import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Screen;
 
 public class HomeScreen extends Screen {
 
-	public HomeScreen(Game game){
-		super(game);
+	private TextureDO _bg;
+	
+	public HomeScreen(Game game) {
+		super(game, "home");
+		
+		_bg = new TextureDO(new TextureInfo(Assets.startImage,new Point(200, 200), new Point(200, 200) ));
 	}
+
+	//TODO add buttons
 	
 	@Override
 	public void update(float time) {
@@ -16,9 +27,9 @@ public class HomeScreen extends Screen {
 	}
 
 	@Override
-	public void paint(float time) {
-		// TODO Auto-generated method stub
-
+	public void draw(Graphics g) {
+		//g.drawImage(Assets.startImage, 0, 0);
+		_bg.draw(g);
 	}
 
 	@Override
