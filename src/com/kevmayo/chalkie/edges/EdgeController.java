@@ -1,13 +1,11 @@
 package com.kevmayo.chalkie.edges;
 
+import android.graphics.Path;
+
 public class EdgeController {
 
 	public EdgeController(){
 		
 	}
-	
-	private Path resetPath(Path path){
-		
-		return path;
-	}
+
 }

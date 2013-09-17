@@ -21,7 +21,6 @@ public class Shape extends View {
 	private void init() {
 	 _paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	 _paint.setColor(0x000);
-	 
 	}
 
 	@Override
