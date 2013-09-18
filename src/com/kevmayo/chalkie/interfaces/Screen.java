@@ -1,5 +1,6 @@
 package com.kevmayo.chalkie.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Rect;
@@ -8,17 +9,37 @@ import android.util.Log;
 import com.kevmayo.chalkie.framework.AndroidGame;
 import com.kevmayo.chalkie.framework.DisplayObject;
 
+
+/**
+ * @author Kevin
+ * 
+ * Screen serves as base container for each interface
+ * 
+ * Screen was originally developed (based on the Android Game book) to only be a pattern for 
+ * navigation purposes, but I've intended it to be also integrated into the display list framework,
+ * so it automates the drawing of children, updating etc.
+ * 
+ */
+
 public abstract class Screen implements IDisplayObject {
+
 	protected final Game game;
 	public String _name = "";
-	private IDisplayObject _parent;
-	private List<IDisplayObject> _children;
+	protected IDisplayObject _parent;
+	protected List<IDisplayObject> _children;
+
 
 	public Screen(Game game, String name) {
 		this.game = game;
 		this._name = name;
+		_children = new ArrayList<IDisplayObject>();
 	}
 
+	@Override
+	public Rect getAbsoluteRect() {
+		return null;
+	}
+	
 	public void update(float time) {
 		for (int i = 0; i < _children.size(); i++)
 			_children.get(i).update(time);
@@ -30,7 +51,7 @@ public abstract class Screen implements IDisplayObject {
 	}
 	
 	public IDisplayObject getParent() {
-		return _parent;
+		return this;
 	}
 
 	public void setParent(IDisplayObject parent) {

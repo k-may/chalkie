@@ -11,11 +11,16 @@ import com.kevmayo.chalkie.interfaces.Screen;
 public class HomeScreen extends Screen {
 
 	private TextureDO _bg;
+	private TextureDO _icon;
+	
 	
 	public HomeScreen(Game game) {
 		super(game, "home");
 		
-		_bg = new TextureDO(new TextureInfo(Assets.startImage,new Point(200, 200), new Point(200, 200) ));
+		//_bg = new TextureDO(new TextureInfo(Assets.startImage,new Point(200, 200), new Point(200, 200) ));
+		_icon = new TextureDO(Assets.Icon);
+		_icon.setPos(12, 10);
+		addChild(_icon);
 	}
 
 	//TODO add buttons
@@ -25,13 +30,7 @@ public class HomeScreen extends Screen {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void draw(Graphics g) {
-		//g.drawImage(Assets.startImage, 0, 0);
-		_bg.draw(g);
-	}
-
+	
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub

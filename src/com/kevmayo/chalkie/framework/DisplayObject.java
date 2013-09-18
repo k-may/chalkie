@@ -1,24 +1,39 @@
 package com.kevmayo.chalkie.framework;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Rect;
 
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
-import com.kevmayo.chalkie.interfaces.Input;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
 
 public abstract class DisplayObject implements IDisplayObject {
 	
-	private Rect _rect;
-	private String _name;
-	private IDisplayObject _parent;
-	private List<IDisplayObject> _children;
-	private boolean _visible = true;
+	protected Rect _rect;
+	protected String _name;
+	protected IDisplayObject _parent;
+	protected List<IDisplayObject> _children;
+	protected boolean _visible = true;
 
 	public DisplayObject(String name) {
 		_name = name;
+		_children = new ArrayList<IDisplayObject>();
+	}
+	
+	@Override
+	public Rect getAbsoluteRect() {
+		
+		Rect rect = new Rect(this._rect.left, this._rect.top, this._rect.right, this._rect.bottom);
+		IDisplayObject parent = this;
+		while (parent.getParent() != parent && parent.getParent() != null)
+		{
+			rect.offset(parent.getParent().getRect().left, parent.getParent().getRect().left);//Offset(new Point(parent.parent.rect.X, parent.parent.rect.Y));
+			parent = parent.getParent();
+		}
+
+		return rect;
 	}
 
 	public String getName() {
@@ -27,6 +42,10 @@ public abstract class DisplayObject implements IDisplayObject {
 
 	public void setName(String _name) {
 		this._name = _name;
+	}
+	
+	public void setPos(int x,int y){
+		_rect.offset(x, y);
 	}
 
 	public Rect getRect() {

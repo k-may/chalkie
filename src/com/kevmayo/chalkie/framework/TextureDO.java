@@ -4,25 +4,46 @@ import java.util.List;
 
 import android.graphics.Rect;
 
+import com.kevmayo.chalkie.Assets;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
 import com.kevmayo.chalkie.interfaces.Image;
 
 public class TextureDO implements IDisplayObject {
 
-	private Rect _rect;
-	private String _name;
-	private IDisplayObject _parent;
-	private List<IDisplayObject> _children;
-	private TextureInfo _textureInfo;
-	
-	private boolean _visible = true;
+	protected Rect _rect;
+	protected String _name;
+	protected IDisplayObject _parent;
+	protected List<IDisplayObject> _children;
+	protected TextureInfo _textureInfo;
+	protected boolean _visible = true;
 
+	public TextureDO(String textureName){
+		this(Assets.instance.getTexture(textureName));
+	}
+	
 	public TextureDO(TextureInfo texture){
 		_textureInfo = texture;
 		_rect = new Rect(0, 0, texture.size.x, texture.size.y);
 	}
 	
+	@Override
+	public Rect getAbsoluteRect() {
+		
+		Rect rect = new Rect(this._rect.left, this._rect.top, this._rect.right, this._rect.bottom);
+		IDisplayObject parent = this;
+		while (parent.getParent() != parent && parent.getParent() != null)
+		{
+			rect.offset(parent.getParent().getRect().left, parent.getParent().getRect().left);//Offset(new Point(parent.parent.rect.X, parent.parent.rect.Y));
+			parent = parent.getParent();
+		}
+
+		return rect;
+	}
+	
+	public void setPos(int x,int y){
+		_rect.offset(x, y);
+	}
 	@Override
 	public Rect getRect() {
 		return _rect;

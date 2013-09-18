@@ -9,6 +9,7 @@ public interface IDisplayObject {
 	public void setParent(IDisplayObject parent);
 	public IDisplayObject removeChild(IDisplayObject child);
 	public Rect getRect();
+	public Rect getAbsoluteRect();
 	public void setRect(Rect rect);
 	public String getName();
 }

@@ -74,6 +74,8 @@ public class AndroidGraphics implements Graphics {
 		else
 			format = ImageFormat.ARGB8888;
 		
+		bitmap.setDensity(Bitmap.DENSITY_NONE);
+		
 		return new AndroidImage(bitmap, format);
 	}
 
@@ -115,8 +117,13 @@ public class AndroidGraphics implements Graphics {
 		dstRect.top = y;
 		dstRect.right = x + srcWidth;
 		dstRect.bottom = y + srcHeight;
-
-		canvas.drawBitmap(((AndroidImage) image).bitmap, srcRect, dstRect, null);
+		
+		Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+		paint.setDither(true);
+		
+		canvas.drawBitmap(((AndroidImage) image).bitmap, srcRect, dstRect, paint);
 	}
 
 	@Override
