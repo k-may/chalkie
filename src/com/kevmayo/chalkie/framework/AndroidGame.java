@@ -55,12 +55,15 @@ public abstract class AndroidGame extends Activity implements Game {
 		SCREEN_HEIGHT = size.y;
 
 		trace("SCREEN DIMENSIONS : " + size.x + " / " + size.y);
+		
 		/*
 		 * float scaleX = (float) frameBufferWidth / size.x; float scaleY =
 		 * (float) frameBufferHeight / size.y;
 		 */
+		
 		Bitmap frameBuffer = Bitmap
-				.createBitmap(size.x, size.y, Config.RGB_565);
+				.createBitmap(800, 1200, Config.RGB_565);
+		frameBuffer.setDensity(Bitmap.DENSITY_NONE);
 
 		renderView = new AndroidFastRenderView(this, frameBuffer);
 		graphics = new AndroidGraphics(getAssets(), frameBuffer);

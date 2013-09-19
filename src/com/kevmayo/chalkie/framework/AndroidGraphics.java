@@ -43,8 +43,9 @@ public class AndroidGraphics implements Graphics {
 		else
 			config = Config.ARGB_8888;
 
-		Options options = new Options();
+		Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = config;
+		options.inScaled = false;
 
 		InputStream in = null;
 		Bitmap bitmap = null;
@@ -111,7 +112,7 @@ public class AndroidGraphics implements Graphics {
 		srcRect.left = srcX;
 		srcRect.top = srcY;
 		srcRect.right = srcX + srcWidth;
-		srcRect.bottom = srcX + srcHeight;
+		srcRect.bottom = srcY + srcHeight;
 
 		dstRect.left = x;
 		dstRect.top = y;

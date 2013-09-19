@@ -66,7 +66,7 @@ public class TextureDO implements IDisplayObject {
 
 	@Override
 	public void draw(Graphics g) {
-		g.drawImage(_textureInfo.image,_rect.left, _rect.left, _textureInfo.pos.x, _textureInfo.pos.y, _textureInfo.size.x, _textureInfo.size.y);
+		g.drawImage(_textureInfo.image,_rect.left, _rect.top, _textureInfo.pos.x, _textureInfo.pos.y, _textureInfo.size.x, _textureInfo.size.y);
 	}
 
 	@Override
