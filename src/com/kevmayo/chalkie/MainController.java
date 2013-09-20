@@ -1,8 +1,8 @@
 package com.kevmayo.chalkie;
 
+import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
-import com.kevmayo.chalkie.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Screen;
 import com.kevmayo.chalkie.view.ChalkBoardScreen;
 

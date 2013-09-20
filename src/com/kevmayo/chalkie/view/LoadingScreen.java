@@ -1,7 +1,7 @@
 package com.kevmayo.chalkie.view;
 
 import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.framework.AndroidGame;
+import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Screen;
