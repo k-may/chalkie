@@ -7,7 +7,14 @@ import java.util.Random;
 
 import android.graphics.Point;
 
-
+/**
+ * @author Kevin
+ * 
+ *         Util class for edge equations
+ * 
+ *         May need to use a float-based Point class in the future
+ * 
+ */
 public class GeometryHelper {
 
 	public static Point LineIntersection(Line a, Line b) {
@@ -20,7 +27,7 @@ public class GeometryHelper {
 
 		float x = (b.B * a.C - a.B * b.C) / det;
 		float y = (a.A * b.C - b.A * a.C) / det;
-		return new Point(x, y);
+		return new Point((int) x, (int) y);
 	}
 
 	public static List<Point> LineIntersections(Line[] lines) {
@@ -57,8 +64,8 @@ public class GeometryHelper {
 
 	// Code adapted from Paul Bourke:
 	// http://local.wasp.uwa.edu.au/~pbourke/geometry/sphereline/raysphere.c
-	public static List<Point> CircleLineIntersection(Point A, Point B,
-			Point C, int rad) {
+	public static List<Point> CircleLineIntersection(Point A, Point B, Point C,
+			int rad) {
 		// boolean circleLineIntersect(float x1, float y1, float x2, float y2,
 		// float cx, float cy, float cr ) {
 		float dx = B.x - A.x;
@@ -99,7 +106,6 @@ public class GeometryHelper {
 		return new Point((float) (random() * 500), (float) (random() * 500));
 	}
 
-	
 	public static Boolean IsLeftTurn(Point a, Point b, Point c) {
 
 		Point ab = new Point(a.x - b.x, a.y - b.y);
