@@ -64,6 +64,7 @@ public class MultiTouchHandler implements TouchHandler {
                     touchEvent.pointer = pointerId;
                     touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
                     touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
+                    touchEvent.pressure = event.getPressure(i);
                     isTouched[i] = true;
                     id[i] = pointerId;
                     touchEventsBuffer.add(touchEvent);
@@ -77,6 +78,7 @@ public class MultiTouchHandler implements TouchHandler {
                     touchEvent.pointer = pointerId;
                     touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
                     touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
+                    touchEvent.pressure = event.getPressure(i);
                     isTouched[i] = false;
                     id[i] = -1;
                     touchEventsBuffer.add(touchEvent);
@@ -84,10 +86,11 @@ public class MultiTouchHandler implements TouchHandler {
 
                 case MotionEvent.ACTION_MOVE:
                     touchEvent = touchEventPool.newObject();
-                    touchEvent.type = TouchEvent.TOUCH_DRAGGED;
+                    touchEvent.type = TouchEvent.TOUCH_MOVE;
                     touchEvent.pointer = pointerId;
                     touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
                     touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
+                    touchEvent.pressure = event.getPressure(i);
                     isTouched[i] = true;
                     id[i] = pointerId;
                     touchEventsBuffer.add(touchEvent);

@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import com.kevmayo.chalkie.Assets;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
-import com.kevmayo.chalkie.interfaces.Image;
+import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
 
 public class TextureDO implements IDisplayObject {
 
@@ -82,6 +82,13 @@ public class TextureDO implements IDisplayObject {
 	@Override
 	public IDisplayObject removeChild(IDisplayObject child) {
 		throw new IllegalArgumentException("ImageDO can't have childs");
+	}
+	
+
+	@Override
+	public void handleTouch(TouchEvent evt) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

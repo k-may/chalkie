@@ -20,6 +20,11 @@ import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input;
 import com.kevmayo.chalkie.interfaces.Screen;
 
+/**
+*
+* Using http://www.kilobolt.com/day-1-introduction-to-android.html, amazing game framework tutorial
+*/
+
 public abstract class AndroidGame extends Activity implements Game {
 	AndroidFastRenderView renderView;
 	Graphics graphics;
@@ -39,31 +44,15 @@ public abstract class AndroidGame extends Activity implements Game {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		/*
-		 * boolean isPortrait = getResources().getConfiguration().orientation ==
-		 * Configuration.ORIENTATION_PORTRAIT; int frameBufferWidth = isPortrait
-		 * ? 800 : 1280; int frameBufferHeight = isPortrait ? 1280 : 800; Bitmap
-		 * frameBuffer = Bitmap.createBitmap(frameBufferWidth,
-		 * frameBufferHeight, Config.RGB_565);
-		 */
-		
 		Point size = new Point();
 		getWindowManager().getDefaultDisplay().getSize(size);
 
 		// todo move this to congifuration change event
 		SCREEN_WIDTH = size.x;
 		SCREEN_HEIGHT = size.y;
-
 		trace("SCREEN DIMENSIONS : " + size.x + " / " + size.y);
-		
-		/*
-		 * float scaleX = (float) frameBufferWidth / size.x; float scaleY =
-		 * (float) frameBufferHeight / size.y;
-		 */
-		
-		Bitmap frameBuffer = Bitmap
-				.createBitmap(800, 1200, Config.RGB_565);
-		frameBuffer.setDensity(Bitmap.DENSITY_NONE);
+
+		Bitmap frameBuffer = Bitmap.createBitmap(SCREEN_WIDTH, SCREEN_HEIGHT, Config.ARGB_4444);
 
 		renderView = new AndroidFastRenderView(this, frameBuffer);
 		graphics = new AndroidGraphics(getAssets(), frameBuffer);

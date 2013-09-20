@@ -1,5 +1,7 @@
 package com.kevmayo.chalkie.interfaces;
 
+import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
+
 import android.graphics.Rect;
 
 public interface IDisplayObject {
@@ -12,4 +14,5 @@ public interface IDisplayObject {
 	public Rect getAbsoluteRect();
 	public void setRect(Rect rect);
 	public String getName();
+	public void handleTouch(TouchEvent evt);
 }

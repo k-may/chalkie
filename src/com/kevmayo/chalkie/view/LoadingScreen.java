@@ -1,5 +1,7 @@
-package com.kevmayo.chalkie;
+package com.kevmayo.chalkie.view;
 
+import com.kevmayo.chalkie.Assets;
+import com.kevmayo.chalkie.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Screen;
@@ -13,8 +15,8 @@ public class LoadingScreen extends Screen {
 
 	@Override
 	public void update(float time) {
-		Graphics g = game.getGraphics();
-		Assets.load(g);
+		//Graphics g = game.getGraphics();
+		Assets.load((AndroidGame)game);
 
 		game.setScreen(new HomeScreen(game));
 	}

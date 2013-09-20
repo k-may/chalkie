@@ -45,7 +45,7 @@ public class SingleTouchHandler implements TouchHandler {
 				isTouched = true;
 				break;
 			case MotionEvent.ACTION_MOVE:
-				touchEvent.type = TouchEvent.TOUCH_DRAGGED;
+				touchEvent.type = TouchEvent.TOUCH_MOVE;
 				isTouched = true;
 				break;
 			case MotionEvent.ACTION_CANCEL:

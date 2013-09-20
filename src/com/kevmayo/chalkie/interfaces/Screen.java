@@ -8,16 +8,18 @@ import android.util.Log;
 
 import com.kevmayo.chalkie.framework.AndroidGame;
 import com.kevmayo.chalkie.framework.DisplayObject;
-
+import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
+import com.kevmayo.chalkie.view.ChalkBoardScreen;
 
 /**
  * @author Kevin
  * 
- * Screen serves as base container for each interface
+ *         Screen serves as base container for each interface
  * 
- * Screen was originally developed (based on the Android Game book) to only be a pattern for 
- * navigation purposes, but I've intended it to be also integrated into the display list framework,
- * so it automates the drawing of children, updating etc.
+ *         Screen was originally developed (based on the Android Game book) to
+ *         only be a pattern for navigation purposes, but I've intended it to be
+ *         also integrated into the display list framework, so it automates the
+ *         drawing of children, updating etc.
  * 
  */
 
@@ -28,7 +30,9 @@ public abstract class Screen implements IDisplayObject {
 	protected IDisplayObject _parent;
 	protected List<IDisplayObject> _children;
 
-
+	public static String HOME = "home";
+	public static String CHALKBOARD = "chalkBoard";
+	
 	public Screen(Game game, String name) {
 		this.game = game;
 		this._name = name;
@@ -39,17 +43,39 @@ public abstract class Screen implements IDisplayObject {
 	public Rect getAbsoluteRect() {
 		return null;
 	}
-	
+
 	public void update(float time) {
+
+		runTouches();
+
 		for (int i = 0; i < _children.size(); i++)
 			_children.get(i).update(time);
+	}
+
+	private void runTouches() {
+		List<TouchEvent> touches = this.game.getInput().getTouchEvents();
+
+		for (int i = 0; i < touches.size(); i++) {
+			TouchEvent evt = touches.get(i);
+			/*
+			 * if (evt.type == TouchEvent.TOUCH_UP) { Rect rect =
+			 * _saveBtn.getRect(); if (rect.contains(evt.x, evt.y)) {
+			 * game.setScreen(new ChalkBoardScreen(game)); } }
+			 */
+			for (int j = 0; j < _children.size(); j++) {
+				Rect rect = _children.get(j).getRect();
+				if (rect.contains(evt.x, evt.y)) {
+					_children.get(j).handleTouch(evt);
+				}
+			}
+		}
 	}
 
 	public void draw(Graphics g) {
 		for (int i = 0; i < _children.size(); i++)
 			_children.get(i).draw(g);
 	}
-	
+
 	public IDisplayObject getParent() {
 		return this;
 	}
@@ -93,8 +119,16 @@ public abstract class Screen implements IDisplayObject {
 		return child;
 	}
 
-	public Rect getRect(){
-		return new Rect(0,0, AndroidGame.SCREEN_WIDTH, AndroidGame.SCREEN_HEIGHT);
+	public Rect getRect() {
+		return new Rect(0, 0, AndroidGame.SCREEN_WIDTH,
+				AndroidGame.SCREEN_HEIGHT);
+	}
+
+
+	@Override
+	public void handleTouch(TouchEvent evt) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	public abstract void pause();
@@ -105,7 +139,7 @@ public abstract class Screen implements IDisplayObject {
 
 	public abstract void backButton();
 
-	private void trace(String msg){
+	private void trace(String msg) {
 		Log.i("Screen : " + _name, msg);
 	}
 }

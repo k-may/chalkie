@@ -119,11 +119,6 @@ public class AndroidGraphics implements Graphics {
 		dstRect.right = x + srcWidth;
 		dstRect.bottom = y + srcHeight;
 		
-		Paint paint = new Paint();
-		paint.setAntiAlias(true);
-		paint.setFilterBitmap(true);
-		paint.setDither(true);
-		
 		canvas.drawBitmap(((AndroidImage) image).bitmap, srcRect, dstRect, paint);
 	}
 

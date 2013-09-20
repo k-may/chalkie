@@ -1,16 +1,21 @@
 package com.kevmayo.chalkie;
 
+import android.os.Bundle;
+
 import com.kevmayo.chalkie.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Screen;
+import com.kevmayo.chalkie.view.LoadingScreen;
 
-/**
- * @author kev
- *
- * Using http://www.kilobolt.com/day-1-introduction-to-android.html, amazing game framework tutorial
- */
 
 public class MainActivity extends AndroidGame {
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		
+		MainController.getInstance().registerGame(this);
+	}
 	@Override
 	public Screen getInitScreen() {
 		// TODO Auto-generated method stub
