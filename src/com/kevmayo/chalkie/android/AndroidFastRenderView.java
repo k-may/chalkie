@@ -1,4 +1,6 @@
 package com.kevmayo.chalkie.android;
+import com.kevmayo.chalkie.MainController;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -53,6 +55,7 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 				deltaTime = (float) 3.15;
 			}
 			
+			MainController.getInstance().update(deltaTime);
 			game.getCurrentScreen().update(deltaTime);
 			game.getCurrentScreen().draw(game.getGraphics());
 			

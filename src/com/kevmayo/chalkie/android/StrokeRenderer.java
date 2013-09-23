@@ -1,15 +1,20 @@
 package com.kevmayo.chalkie.android;
 
+import java.util.List;
+
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
 
 import com.kevmayo.chalkie.interfaces.Graphics;
-import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
-import com.kevmayo.chalkie.interfaces.Pool;
+import com.kevmayo.chalkie.interfaces.IEdge;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
+import com.kevmayo.chalkie.interfaces.Pool;
 import com.kevmayo.chalkie.interfaces.Pool.PoolObjectFactory;
+import com.kevmayo.chalkie.interfaces.StrokePoint;
 
 public class StrokeRenderer extends DisplayObject {
 
@@ -18,7 +23,9 @@ public class StrokeRenderer extends DisplayObject {
 	// private Dictionary<int, Stroke> _strokeDict;
 	private AndroidImage _strokeBuffer;
 	private AndroidImage _boardBuffer;
-	Stroke stroke;
+	private Stroke _stroke;
+	boolean _invalidated = false;
+	IEdge _edge;
 
 	public StrokeRenderer() {
 		super("strokeController");
@@ -29,26 +36,39 @@ public class StrokeRenderer extends DisplayObject {
 				return new Stroke();
 			}
 		};
+		_rect = new Rect(0, 0, AndroidGame.SCREEN_WIDTH,
+				AndroidGame.SCREEN_HEIGHT);
+	}
+
+	public void setEdge(IEdge edge) {
+		_edge = edge;
 	}
 
 	public void start() {
 		if (_strokeBuffer != null || _boardBuffer != null)
 			dispose();
 
-		Config config = Config.ARGB_4444;
-		int color = Color.argb(0, 255, 255, 255);
-		
-		_strokeBuffer = new AndroidImage(createBitmap(config,color),
-				ImageFormat.ARGB4444);
-		_boardBuffer = new AndroidImage(createBitmap(config,color),
-				ImageFormat.ARGB4444);
+		_strokeBuffer = ChalkieHelper.CreateCanvas();
+		_boardBuffer = ChalkieHelper.CreateCanvas();
 	}
-	
-	private Bitmap createBitmap(Config config, int color){
-		//Config config = Config.ARGB_4444;
-		Bitmap bm = Bitmap.createBitmap(AndroidGame.SCREEN_WIDTH, AndroidGame.SCREEN_HEIGHT, config);
-		bm.eraseColor(color);
-		return bm;
+
+	@Override
+	public void update(float time) {
+		// TODO Auto-generated method stub
+		super.update(time);
+
+		// draw to buffer
+		if (_invalidated) {
+			_invalidated = false;
+			drawStroke(_strokeBuffer, _edge, _stroke.getPoints());
+
+			if (_stroke.closed) {
+				_boardBuffer.merge(_strokeBuffer);
+				_strokeBuffer.dispose();
+				_strokeBuffer = ChalkieHelper.CreateCanvas();
+				_stroke = null;
+			}
+		}
 	}
 
 	@Override
@@ -56,12 +76,13 @@ public class StrokeRenderer extends DisplayObject {
 		// TODO Auto-generated method stub
 		super.draw(g);
 
-
 		if (_strokeBuffer == null || _boardBuffer == null)
 			return;
-		
+
 		g.drawImage(_boardBuffer, 0, 0);
-		g.drawImage(_strokeBuffer, 0, 0);
+
+		if (_stroke != null)
+			g.drawImage(_strokeBuffer, 0, 0);
 	}
 
 	public void dispose() {
@@ -75,29 +96,50 @@ public class StrokeRenderer extends DisplayObject {
 		switch (evt.type) {
 		case TouchEvent.TOUCH_DOWN:
 			// create new stroke
-			stroke = new Stroke();// strokePool.newObject(); // new
+			_stroke = new Stroke();// strokePool.newObject(); // new
 									// Stroke(evt.x, evt.y,
 									// evt.pressure,
 									// evt.pointer);
-			stroke.update(evt.x, evt.y, evt.pressure);
-			stroke.pointerIndex = evt.pointer;
-
-			_strokeBuffer.setPixels(stroke.getPoints());
-			break;
 		case TouchEvent.TOUCH_MOVE:
-			// update stroke
-			stroke.update(evt.x, evt.y, evt.pressure);
-			_strokeBuffer.setPixels(stroke.getPoints());
+			if (_stroke != null) {
+				_stroke.update(evt.x, evt.y, evt.pressure);
+				// test pointer index?
+				_stroke.pointerIndex = evt.pointer;
+				_invalidated = true;
+			}
 			break;
 		case TouchEvent.TOUCH_UP:
 			// dispose stroke
 			// strokePool.free(stroke);
-			stroke.update(evt.x, evt.y, evt.pressure);
-			_boardBuffer.merge(_strokeBuffer);
-			_strokeBuffer.dispose();
-			_strokeBuffer = new AndroidImage(createBitmap(Config.ARGB_4444, Color.argb(0, 255, 255, 255)),
-					ImageFormat.ARGB4444);
+			if (_stroke != null) {
+				_stroke.update(evt.x, evt.y, evt.pressure);
+				_stroke.close();
+				_invalidated = true;
+			}
 			break;
+		}
+
+	}
+
+	private void drawStroke(AndroidImage image, IEdge<Point> edge,
+			List<StrokePoint> points) {
+		Bitmap bitmap = image.bitmap;
+		Canvas canvas = new Canvas(bitmap);
+		Paint paint = new Paint();
+		paint.setColor(Color.BLACK);
+
+		for (int i = 0; i < points.size(); i++) {
+			StrokePoint sPt = points.get(i);
+			Path path = new Path();
+			List<Point> shape = edge.getShape(sPt);
+			Point pt = shape.get(0);
+			path.moveTo(pt.x, pt.y);
+			for (int j = 1; j < shape.size(); j++) {
+				pt = shape.get(j);
+				path.lineTo(pt.x, pt.y);
+			}
+			path.close();
+			canvas.drawPath(path, paint);
 		}
 	}
 

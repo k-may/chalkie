@@ -1,11 +1,8 @@
 package com.kevmayo.chalkie.android;
 
-import android.graphics.Point;
-
-
 public class Circle {
-	private Point _a;
-	private int _radius;
+	public Point center;
+	public int radius;
 	
 	public Circle(){
 	}
@@ -15,15 +12,8 @@ public class Circle {
 	}
 	
 	public Circle(Point a, int radius){
-		_a = a;
-		_radius = radius;
+		center = a;
+		this.radius = radius;
 	}
-	
-	public Point a(){
-		return _a;
-	}
-	
-	public int radius(){
-		return _radius;
-	}
+
 }

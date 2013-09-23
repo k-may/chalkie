@@ -2,7 +2,6 @@ package com.kevmayo.chalkie.android;
 
 import com.kevmayo.chalkie.interfaces.Image;
 
-import android.graphics.Point;
 
 public class TextureInfo {
     public String name;

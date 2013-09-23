@@ -3,10 +3,10 @@ package com.kevmayo.chalkie;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.graphics.Point;
 import android.graphics.Typeface;
 
 import com.kevmayo.chalkie.android.AndroidGame;
+import com.kevmayo.chalkie.android.Point;
 import com.kevmayo.chalkie.android.TextureInfo;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;

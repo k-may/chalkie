@@ -20,7 +20,7 @@ public class Stroke {
 	private StrokePoint _downPos;
 	public int pointerIndex;
 	private List<StrokePoint> _points;
-
+	public boolean closed = false;
 
 	// private boolean isPrimary = false;
 	public Stroke() {
@@ -37,15 +37,19 @@ public class Stroke {
 		this.pointerIndex = pointerIndex;
 	}
 
+	public void close() {
+		closed = true;
+	}
+
 	public void update(int x, int y, float pressure) {
 
-		if(_downPos == null){
-			_downPos = new StrokePoint(x,  y, pressure);
+		if (_downPos == null) {
+			_downPos = new StrokePoint(x, y, pressure);
 			_points = new ArrayList<StrokePoint>();
 			_points.add(_downPos);
 			return;
 		}
-			
+
 		if (y < 0)
 			y = 0;
 		if (x < 0)

@@ -6,6 +6,8 @@ import com.kevmayo.chalkie.Assets;
 import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.android.ButtonDO;
 import com.kevmayo.chalkie.android.StrokeRenderer;
+import com.kevmayo.chalkie.android.Edges.BreakingEdge;
+import com.kevmayo.chalkie.android.Edges.SimpleEdge;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
@@ -20,6 +22,8 @@ public class ChalkBoardScreen extends Screen{
 		super(game, Screen.CHALKBOARD);
 		
 		_controller = new StrokeRenderer();
+		//_controller.setEdge(new SimpleEdge());
+		_controller.setEdge(new BreakingEdge());
 		_controller.start();
 		addChild(_controller);
 		

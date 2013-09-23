@@ -32,7 +32,7 @@ public abstract class Screen implements IDisplayObject {
 
 	public static String HOME = "home";
 	public static String CHALKBOARD = "chalkBoard";
-	
+
 	public Screen(Game game, String name) {
 		this.game = game;
 		this._name = name;
@@ -53,21 +53,29 @@ public abstract class Screen implements IDisplayObject {
 	}
 
 	private void runTouches() {
+
 		List<TouchEvent> touches = this.game.getInput().getTouchEvents();
 
 		for (int i = 0; i < touches.size(); i++) {
 			TouchEvent evt = touches.get(i);
-			/*
-			 * if (evt.type == TouchEvent.TOUCH_UP) { Rect rect =
-			 * _saveBtn.getRect(); if (rect.contains(evt.x, evt.y)) {
-			 * game.setScreen(new ChalkBoardScreen(game)); } }
-			 */
-			for (int j = 0; j < _children.size(); j++) {
-				Rect rect = _children.get(j).getRect();
-				if (rect.contains(evt.x, evt.y)) {
-					_children.get(j).handleTouch(evt);
+			//if (evt.type == TouchEvent.TOUCH_UP) {
+				/*
+				 * if (evt.type == TouchEvent.TOUCH_UP) { Rect rect =
+				 * _saveBtn.getRect(); if (rect.contains(evt.x, evt.y)) {
+				 * game.setScreen(new ChalkBoardScreen(game)); } }
+				 */
+				for (int j = 0; j < _children.size(); j++) {
+					try {
+						Rect rect = _children.get(j).getRect();
+						if (rect.contains(evt.x, evt.y)) {
+							_children.get(j).handleTouch(evt);
+						}
+					} catch (NullPointerException e) {
+						trace("null pointer : " + e.getMessage());
+					}
+
 				}
-			}
+			//}
 		}
 	}
 
@@ -124,13 +132,12 @@ public abstract class Screen implements IDisplayObject {
 				AndroidGame.SCREEN_HEIGHT);
 	}
 
-
 	@Override
 	public void handleTouch(TouchEvent evt) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public abstract void pause();
 
 	public abstract void resume();

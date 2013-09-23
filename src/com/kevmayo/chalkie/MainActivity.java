@@ -27,4 +27,6 @@ public class MainActivity extends AndroidGame {
 		// TODO Auto-generated method stub
 		getCurrentScreen().backButton();
 	}
+	
+	
 }
