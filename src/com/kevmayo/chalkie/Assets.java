@@ -5,9 +5,9 @@ import java.util.Map;
 
 import android.graphics.Typeface;
 
-import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.android.Point;
 import com.kevmayo.chalkie.android.TextureInfo;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 import com.kevmayo.chalkie.interfaces.Image;

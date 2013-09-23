@@ -3,7 +3,7 @@ package com.kevmayo.chalkie;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kevmayo.chalkie.android.AndroidGame;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
 import com.kevmayo.chalkie.interfaces.Screen;

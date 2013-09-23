@@ -1,4 +1,4 @@
-package com.kevmayo.chalkie.android;
+package com.kevmayo.chalkie.android.framework;
 
 import android.app.Activity;
 import android.content.Context;

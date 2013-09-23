@@ -2,12 +2,15 @@ package com.kevmayo.chalkie.view;
 
 import java.util.List;
 
+import android.graphics.Color;
+
 import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.android.ButtonDO;
 import com.kevmayo.chalkie.android.StrokeRenderer;
 import com.kevmayo.chalkie.android.Edges.BreakingEdge;
 import com.kevmayo.chalkie.android.Edges.SimpleEdge;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
+import com.kevmayo.chalkie.android.framework.AndroidGraphics;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
@@ -21,7 +24,9 @@ public class ChalkBoardScreen extends Screen{
 	public ChalkBoardScreen(Game game) {
 		super(game, Screen.CHALKBOARD);
 		
-		_controller = new StrokeRenderer();
+		game.getGraphics().clearScreen(Color.argb(0, 255, 255, 255));
+		
+		_controller = new StrokeRenderer(((AndroidGraphics)game.getGraphics()).frameBuffer);
 		//_controller.setEdge(new SimpleEdge());
 		_controller.setEdge(new BreakingEdge());
 		_controller.start();
@@ -67,14 +72,6 @@ public class ChalkBoardScreen extends Screen{
 		for(int i = 0 ;i < touches.size(); i ++){
 			_controller.handleTouch(touches.get(i));
 		}
-	}
-	
-	@Override
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		g.clearScreen(0xffffff);
-		super.draw(g);
-		
 	}
 
 }

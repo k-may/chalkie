@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.os.Debug;
 import android.util.Log;
 
 import com.kevmayo.chalkie.android.BruteHull;
 import com.kevmayo.chalkie.android.Circle;
 import com.kevmayo.chalkie.android.Line;
 import com.kevmayo.chalkie.android.Point;
+import com.kevmayo.chalkie.android.QuickHull;
 import com.kevmayo.chalkie.interfaces.IEdge;
 import com.kevmayo.chalkie.interfaces.StrokePoint;
 
@@ -50,8 +52,8 @@ public class BreakingEdge implements IEdge<Point> {
 		//trace("pressure : " + pt.pressure);
 		// if pressure > max resetShape, create particles (dispatch)\
 		
-		if(_currentShape == null || pt.pressure > MAX_PRESSURE)
-			reset();
+		//if(_currentShape == null || pt.pressure > MAX_PRESSURE)
+		//	reset();
 
 		return getTranslatedShape(new Point(pt.x, pt.y), _currentShape);
 	}
@@ -83,8 +85,12 @@ public class BreakingEdge implements IEdge<Point> {
 		if (_currentShape != null)
 			_previousShape = _currentShape;
 
-		_currentShape =  BruteHull.startAlgorithm(_intersections);
+		//_currentShape =  BruteHull.startAlgorithm(_intersections);
 
+		//Debug.startMethodTracing("convexhull");
+		_currentShape = QuickHull.startAlgorithm(_intersections);
+		//Debug.stopMethodTracing();
+		
 		if(_currentShape.size() < 3)
 			throw new RuntimeException("brute hull invalid : pts = " + _currentShape.size());
 

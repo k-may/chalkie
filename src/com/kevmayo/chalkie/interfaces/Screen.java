@@ -6,8 +6,8 @@ import java.util.List;
 import android.graphics.Rect;
 import android.util.Log;
 
-import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.android.DisplayObject;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
 import com.kevmayo.chalkie.view.ChalkBoardScreen;
 

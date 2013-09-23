@@ -1,5 +1,7 @@
 package com.kevmayo.chalkie.android;
 
+import com.kevmayo.chalkie.android.framework.AndroidGame;
+import com.kevmayo.chalkie.android.framework.AndroidImage;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 
 import android.graphics.Bitmap;

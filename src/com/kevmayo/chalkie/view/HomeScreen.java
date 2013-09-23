@@ -3,9 +3,9 @@ package com.kevmayo.chalkie.view;
 import android.graphics.Color;
 
 import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.android.ButtonDO;
 import com.kevmayo.chalkie.android.TextureDO;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Screen;

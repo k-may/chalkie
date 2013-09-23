@@ -5,10 +5,13 @@ import java.util.List;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 
+import com.kevmayo.chalkie.android.framework.AndroidGame;
+import com.kevmayo.chalkie.android.framework.AndroidImage;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IEdge;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
@@ -22,13 +25,14 @@ public class StrokeRenderer extends DisplayObject {
 	private Pool<Stroke> strokePool;
 	// private Dictionary<int, Stroke> _strokeDict;
 	private AndroidImage _strokeBuffer;
-	private AndroidImage _boardBuffer;
+	private Bitmap _boardBuffer;
 	private Stroke _stroke;
 	boolean _invalidated = false;
 	IEdge _edge;
 
-	public StrokeRenderer() {
+	public StrokeRenderer(Bitmap buffer) {
 		super("strokeController");
+		_boardBuffer = buffer;
 		PoolObjectFactory<Stroke> factory = new PoolObjectFactory<Stroke>() {
 			@Override
 			public Stroke createObject() {
@@ -45,11 +49,11 @@ public class StrokeRenderer extends DisplayObject {
 	}
 
 	public void start() {
-		if (_strokeBuffer != null || _boardBuffer != null)
+		if (_strokeBuffer != null )//|| _boardBuffer != null)
 			dispose();
 
 		_strokeBuffer = ChalkieHelper.CreateCanvas();
-		_boardBuffer = ChalkieHelper.CreateCanvas();
+		//_boardBuffer = ChalkieHelper.CreateCanvas();
 	}
 
 	@Override
@@ -63,7 +67,8 @@ public class StrokeRenderer extends DisplayObject {
 			drawStroke(_strokeBuffer, _edge, _stroke.getPoints());
 
 			if (_stroke.closed) {
-				_boardBuffer.merge(_strokeBuffer);
+				//_boardBuffer.merge(_strokeBuffer);
+				//mergeBuffers();
 				_strokeBuffer.dispose();
 				_strokeBuffer = ChalkieHelper.CreateCanvas();
 				_stroke = null;
@@ -71,6 +76,19 @@ public class StrokeRenderer extends DisplayObject {
 		}
 	}
 
+	private void mergeBuffers(){
+		// TODO Auto-generated method stub
+		Bitmap src = _strokeBuffer.bitmap;
+		Bitmap merged = Bitmap.createBitmap(_boardBuffer.getWidth(),
+				_boardBuffer.getHeight(), _boardBuffer.getConfig());
+		Canvas canvas = new Canvas(merged);
+		canvas.drawBitmap(_boardBuffer, new Matrix(), null);
+		canvas.drawBitmap(src, 0, 0, null);
+		_boardBuffer.recycle();
+		_boardBuffer = merged;
+	}
+	
+	
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
@@ -79,7 +97,7 @@ public class StrokeRenderer extends DisplayObject {
 		if (_strokeBuffer == null || _boardBuffer == null)
 			return;
 
-		g.drawImage(_boardBuffer, 0, 0);
+		//g.drawImage(_boardBuffer, 0, 0);
 
 		if (_stroke != null)
 			g.drawImage(_strokeBuffer, 0, 0);
@@ -88,8 +106,8 @@ public class StrokeRenderer extends DisplayObject {
 	public void dispose() {
 		_strokeBuffer.dispose();
 		_strokeBuffer = null;
-		_boardBuffer.dispose();
-		_boardBuffer = null;
+		//_boardBuffer.dispose();
+		//_boardBuffer = null;
 	}
 
 	public void handleTouch(TouchEvent evt) {

@@ -1,4 +1,4 @@
-package com.kevmayo.chalkie.android;
+package com.kevmayo.chalkie.android.framework;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +20,7 @@ import com.kevmayo.chalkie.interfaces.Image;
 public class AndroidGraphics implements Graphics {
 
 	AssetManager assets;
-	Bitmap frameBuffer;
+	public Bitmap frameBuffer;
 	Canvas canvas;
 	Paint paint;
 	Rect srcRect = new Rect();

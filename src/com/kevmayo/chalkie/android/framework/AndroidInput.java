@@ -1,4 +1,4 @@
-package com.kevmayo.chalkie.android;
+package com.kevmayo.chalkie.android.framework;
 
 import java.util.List;
 
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Build.VERSION;
 import android.view.View;
 
+import com.kevmayo.chalkie.android.MultiTouchHandler;
+import com.kevmayo.chalkie.android.SingleTouchHandler;
 import com.kevmayo.chalkie.interfaces.Input;
 import com.kevmayo.chalkie.interfaces.TouchHandler;
 

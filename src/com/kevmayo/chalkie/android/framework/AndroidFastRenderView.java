@@ -1,4 +1,4 @@
-package com.kevmayo.chalkie.android;
+package com.kevmayo.chalkie.android.framework;
 import com.kevmayo.chalkie.MainController;
 
 import android.graphics.Bitmap;
