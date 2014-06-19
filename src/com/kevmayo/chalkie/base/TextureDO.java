@@ -86,14 +86,24 @@ public class TextureDO implements IDisplayObject {
 	
 
 	@Override
-	public void handleTouch(TouchEvent evt) {
+	public boolean handleTouch(TouchEvent evt) {
 		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
     @Override
     public void resize() {
 
+    }
+
+    @Override
+    public int get_numChildren() {
+        return 0;
+    }
+
+    @Override
+    public IDisplayObject get_childAt(int i) {
+        return null;
     }
 
 }

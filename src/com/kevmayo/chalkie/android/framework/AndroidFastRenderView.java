@@ -1,10 +1,5 @@
-<<<<<<< HEAD:src/com/kevmayo/chalkie/android/AndroidFastRenderView.java
-package com.kevmayo.chalkie.android;
-=======
-package com.kevmayo.chalkie.android.framework;
-import com.kevmayo.chalkie.MainController;
 
->>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d:src/com/kevmayo/chalkie/android/framework/AndroidFastRenderView.java
+package com.kevmayo.chalkie.android.framework;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;

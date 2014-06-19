@@ -3,13 +3,8 @@ package com.kevmayo.chalkie.interfaces;
 import android.graphics.Rect;
 import android.util.Log;
 
-<<<<<<< HEAD
-import com.kevmayo.chalkie.android.AndroidGame;
-import com.kevmayo.chalkie.base.exceptions.ChalkieException;
-=======
-import com.kevmayo.chalkie.android.DisplayObject;
 import com.kevmayo.chalkie.android.framework.AndroidGame;
->>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d
+import com.kevmayo.chalkie.base.exceptions.ChalkieException;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
 
 import java.util.ArrayList;

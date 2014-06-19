@@ -1,30 +1,21 @@
 package com.kevmayo.chalkie.base.edges;
 
-import static com.kevmayo.chalkie.base.math.GeometryHelper.CircleLineIntersections;
-import static com.kevmayo.chalkie.base.math.GeometryHelper.LineIntersections;
-import static com.kevmayo.chalkie.base.math.GeometryHelper.RandomPoint;
+import android.graphics.Color;
+import android.util.Log;
+
+import com.kevmayo.chalkie.base.math.Circle;
+import com.kevmayo.chalkie.base.math.Line;
+import com.kevmayo.chalkie.base.math.Point;
+import com.kevmayo.chalkie.base.math.QuickHull;
+import com.kevmayo.chalkie.interfaces.IEdge;
+import com.kevmayo.chalkie.interfaces.StrokePoint;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Color;
-import android.os.Debug;
-import android.util.Log;
-
-<<<<<<< HEAD:src/com/kevmayo/chalkie/base/Edges/BreakingEdge.java
-import com.kevmayo.chalkie.base.math.BruteHull;
-import com.kevmayo.chalkie.base.math.Circle;
-import com.kevmayo.chalkie.base.math.Line;
-import com.kevmayo.chalkie.base.math.Point;
-=======
-import com.kevmayo.chalkie.android.BruteHull;
-import com.kevmayo.chalkie.android.Circle;
-import com.kevmayo.chalkie.android.Line;
-import com.kevmayo.chalkie.android.Point;
-import com.kevmayo.chalkie.android.QuickHull;
->>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d:src/com/kevmayo/chalkie/android/Edges/BreakingEdge.java
-import com.kevmayo.chalkie.interfaces.IEdge;
-import com.kevmayo.chalkie.interfaces.StrokePoint;
+import static com.kevmayo.chalkie.base.math.GeometryHelper.CircleLineIntersections;
+import static com.kevmayo.chalkie.base.math.GeometryHelper.LineIntersections;
+import static com.kevmayo.chalkie.base.math.GeometryHelper.RandomPoint;
 
 /**
  * @author Kevin

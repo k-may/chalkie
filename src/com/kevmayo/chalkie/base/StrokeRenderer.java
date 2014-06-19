@@ -8,14 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 
-<<<<<<< HEAD:src/com/kevmayo/chalkie/base/StrokeRenderer.java
-import com.kevmayo.chalkie.android.AndroidGame;
-import com.kevmayo.chalkie.android.AndroidImage;
-import com.kevmayo.chalkie.base.math.Point;
-=======
 import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.android.framework.AndroidImage;
->>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d:src/com/kevmayo/chalkie/android/StrokeRenderer.java
+import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IEdge;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
@@ -116,7 +111,7 @@ public class StrokeRenderer extends DisplayObject {
 		//_boardBuffer = null;
 	}
 
-	public void handleTouch(TouchEvent evt) {
+	public boolean handleTouch(TouchEvent evt) {
 		switch (evt.type) {
 		case TouchEvent.TOUCH_DOWN:
 			// create new stroke
@@ -143,6 +138,7 @@ public class StrokeRenderer extends DisplayObject {
 			break;
 		}
 
+        return true;
 	}
 
 	private void drawStroke(AndroidImage image, IEdge<Point> edge,

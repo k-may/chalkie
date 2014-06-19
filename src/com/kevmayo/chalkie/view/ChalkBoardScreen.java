@@ -1,26 +1,14 @@
 package com.kevmayo.chalkie.view;
 
-<<<<<<< HEAD
-import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.android.AndroidGame;
-import com.kevmayo.chalkie.base.ButtonDO;
-import com.kevmayo.chalkie.base.StrokeRenderer;
-import com.kevmayo.chalkie.base.edges.BreakingEdge;
-=======
-import java.util.List;
-
 import android.graphics.Color;
 
 import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.android.ButtonDO;
-import com.kevmayo.chalkie.android.StrokeRenderer;
-import com.kevmayo.chalkie.android.Edges.BreakingEdge;
-import com.kevmayo.chalkie.android.Edges.SimpleEdge;
 import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.android.framework.AndroidGraphics;
->>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d
+import com.kevmayo.chalkie.base.ButtonDO;
+import com.kevmayo.chalkie.base.StrokeRenderer;
+import com.kevmayo.chalkie.base.edges.BreakingEdge;
 import com.kevmayo.chalkie.interfaces.Game;
-import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Screen;
 
 public class ChalkBoardScreen extends Screen{

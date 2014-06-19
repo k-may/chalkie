@@ -5,15 +5,11 @@ import android.graphics.Rect;
 import android.util.Log;
 
 import com.kevmayo.chalkie.Assets;
-<<<<<<< HEAD
-import com.kevmayo.chalkie.android.AndroidGame;
+
 import com.kevmayo.chalkie.base.ButtonDO;
 import com.kevmayo.chalkie.base.TextureDO;
-=======
-import com.kevmayo.chalkie.android.ButtonDO;
-import com.kevmayo.chalkie.android.TextureDO;
 import com.kevmayo.chalkie.android.framework.AndroidGame;
->>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d
+
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input;

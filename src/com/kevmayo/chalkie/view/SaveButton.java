@@ -13,7 +13,8 @@ public class SaveButton extends ButtonDO {
 	}
 	
 	@Override
-	public void handleTouch(TouchEvent evt) {
+	public boolean handleTouch(TouchEvent evt) {
 		new ChalkieEvent(EventType.SAVE_BUTTON_PRESSED, "save").dispatch();
+        return true;
 	}
 }
