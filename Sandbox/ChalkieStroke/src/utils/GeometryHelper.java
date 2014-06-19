@@ -9,6 +9,8 @@ import java.util.Random;
 
 import android.graphics.Point;
 
+import com.kevmayo.chalkie.base.math.Circle;
+
 public class GeometryHelper {
 	
 	private static Random _random;

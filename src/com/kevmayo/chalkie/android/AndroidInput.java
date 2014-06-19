@@ -1,13 +1,15 @@
 package com.kevmayo.chalkie.android;
 
-import java.util.List;
-
 import android.content.Context;
 import android.os.Build.VERSION;
 import android.view.View;
 
+import com.kevmayo.chalkie.events.MultiTouchHandler;
+import com.kevmayo.chalkie.events.SingleTouchHandler;
+import com.kevmayo.chalkie.events.TouchHandler;
 import com.kevmayo.chalkie.interfaces.Input;
-import com.kevmayo.chalkie.interfaces.TouchHandler;
+
+import java.util.List;
 
 public class AndroidInput implements Input {
 	TouchHandler touchHandler;

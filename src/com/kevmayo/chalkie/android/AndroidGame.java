@@ -18,7 +18,6 @@ import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input;
 import com.kevmayo.chalkie.interfaces.Screen;
-
 /**
 *
 * Using http://www.kilobolt.com/day-1-introduction-to-android.html, amazing game framework tutorial

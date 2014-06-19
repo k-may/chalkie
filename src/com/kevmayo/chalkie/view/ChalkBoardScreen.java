@@ -1,16 +1,12 @@
 package com.kevmayo.chalkie.view;
 
-import java.util.List;
-
 import com.kevmayo.chalkie.Assets;
 import com.kevmayo.chalkie.android.AndroidGame;
-import com.kevmayo.chalkie.android.ButtonDO;
-import com.kevmayo.chalkie.android.StrokeRenderer;
-import com.kevmayo.chalkie.android.Edges.BreakingEdge;
-import com.kevmayo.chalkie.android.Edges.SimpleEdge;
+import com.kevmayo.chalkie.base.ButtonDO;
+import com.kevmayo.chalkie.base.StrokeRenderer;
+import com.kevmayo.chalkie.base.edges.BreakingEdge;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
-import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
 import com.kevmayo.chalkie.interfaces.Screen;
 
 public class ChalkBoardScreen extends Screen{
@@ -62,11 +58,7 @@ public class ChalkBoardScreen extends Screen{
 	public void update(float time) {
 		// TODO Auto-generated method stub
 		super.update(time);
-		
-		List<TouchEvent> touches = game.getInput().getTouchEvents();
-		for(int i = 0 ;i < touches.size(); i ++){
-			_controller.handleTouch(touches.get(i));
-		}
+
 	}
 	
 	@Override
@@ -76,5 +68,10 @@ public class ChalkBoardScreen extends Screen{
 		super.draw(g);
 		
 	}
+
+    @Override
+    public void resize() {
+
+    }
 
 }

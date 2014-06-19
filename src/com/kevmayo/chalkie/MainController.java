@@ -1,13 +1,15 @@
 package com.kevmayo.chalkie;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
+import com.kevmayo.chalkie.interfaces.IDisplayObject;
+import com.kevmayo.chalkie.interfaces.Input;
 import com.kevmayo.chalkie.interfaces.Screen;
 import com.kevmayo.chalkie.view.ChalkBoardScreen;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainController {
 
@@ -37,12 +39,30 @@ public class MainController {
 	}
 	
 	public void update(float time){
+        runTouches();
+
 		for(int i=  0; i < _queue.size(); i ++){
 			processEvent(_queue.get(i));
 		}
+
+        _queue.clear();
 	}
-	
-	private void processEvent(ChalkieEvent evt){
+
+    private void runTouches() {
+        List<Input.TouchEvent> touches = game.getInput().getTouchEvents();
+
+        for(Input.TouchEvent evt : touches){
+            ArrayList<IDisplayObject> targets = game.getCurrentScreen().getTargetsAtLocation(evt.x, evt.y);
+            for(IDisplayObject target : targets){
+                //handle event propagation
+                if(target.handleTouch(evt))
+                    break;
+            }
+        }
+
+    }
+
+    private void processEvent(ChalkieEvent evt){
 		if (evt.getType() == EventType.SAVE_BUTTON_PRESSED)
 			seeSavePressed();
 		else if (evt.getType() == EventType.LAUNCH_BUTTON_PRESSED)

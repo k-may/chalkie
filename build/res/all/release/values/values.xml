@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/C:/work/Chalkie_Android/chalkie/res/values/strings.xml -->
+    <eat-comment />
+
+    <color name="myColor">#f5f5f5</color>
+    <!-- From: file:/C:/work/Chalkie_Android/chalkie/res/values/attr.xml -->
+    <eat-comment />
+
+    <declare-styleable name="ChalkBoard">
+        <attr name="showText" format="boolean" />
+        <attr name="labelPosition" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+    <!-- From: file:/C:/work/Chalkie_Android/chalkie/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="app_name">chalkie</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Chalkie</string>
+    <!-- From: file:/C:/work/Chalkie_Android/chalkie/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+
+</resources>

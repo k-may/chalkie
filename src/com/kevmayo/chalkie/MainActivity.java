@@ -16,7 +16,9 @@ public class MainActivity extends AndroidGame {
 		
 		MainController.getInstance().registerGame(this);
 	}
-	@Override
+
+
+    @Override
 	public Screen getInitScreen() {
 		// TODO Auto-generated method stub
 		return new LoadingScreen(this);

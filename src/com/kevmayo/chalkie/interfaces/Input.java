@@ -14,11 +14,14 @@ public interface Input {
 		public int type;
 		public int x, y;
 		public int pointer;
-	}
+        public int time;
+        public int currentTime;
+    }
 	
 	public boolean isTouchDown(int pointer);
 	public int getTouchX(int pointer);
 	public int getTouchY(int pointer);
 	public List<TouchEvent> getTouchEvents();
+
 	
 }

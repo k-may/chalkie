@@ -1,7 +1,7 @@
 package com.kevmayo.chalkie.view;
 
 import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.android.ButtonDO;
+import com.kevmayo.chalkie.base.ButtonDO;
 import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;

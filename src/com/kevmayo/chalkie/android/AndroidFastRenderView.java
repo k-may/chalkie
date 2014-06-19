@@ -1,19 +1,20 @@
 package com.kevmayo.chalkie.android;
-import com.kevmayo.chalkie.MainController;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.kevmayo.chalkie.MainController;
+
 public class AndroidFastRenderView extends SurfaceView implements Runnable {
 
 	AndroidGame game;
 	Bitmap frameBuffer;
 	Thread renderThread = null;
+    volatile boolean running = true;
 	SurfaceHolder holder;
-	volatile boolean running = true;
+
 
 	public AndroidFastRenderView(AndroidGame game, Bitmap frameBuffer) {
 		super(game);
