@@ -5,9 +5,15 @@ import java.util.Map;
 
 import android.graphics.Typeface;
 
+<<<<<<< HEAD
 import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.base.TextureInfo;
+=======
+import com.kevmayo.chalkie.android.Point;
+import com.kevmayo.chalkie.android.TextureInfo;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
+>>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 import com.kevmayo.chalkie.interfaces.Image;

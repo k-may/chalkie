@@ -1,7 +1,12 @@
 package com.kevmayo.chalkie.base;
 
+<<<<<<< HEAD:src/com/kevmayo/chalkie/base/ChalkieHelper.java
 import com.kevmayo.chalkie.android.AndroidGame;
 import com.kevmayo.chalkie.android.AndroidImage;
+=======
+import com.kevmayo.chalkie.android.framework.AndroidGame;
+import com.kevmayo.chalkie.android.framework.AndroidImage;
+>>>>>>> f58a37f1be74bcb5064c0a740bb326d906962f0d:src/com/kevmayo/chalkie/android/ChalkieHelper.java
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 
 import android.graphics.Bitmap;

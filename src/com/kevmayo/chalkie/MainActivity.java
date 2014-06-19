@@ -2,7 +2,7 @@ package com.kevmayo.chalkie;
 
 import android.os.Bundle;
 
-import com.kevmayo.chalkie.android.AndroidGame;
+import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Screen;
 import com.kevmayo.chalkie.view.LoadingScreen;
 

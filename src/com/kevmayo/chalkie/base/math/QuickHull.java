@@ -11,7 +11,7 @@ public class QuickHull {
 	 * <b>Postconditions:</b> Calculates the convex hull using the QuickHull
 	 * algorithm and then returns the collection of points on the hull.
 	 */
-	public List<Point> startAlgorithm(List<Point> coordCollection) {
+	public static List<Point> startAlgorithm(List<Point> coordCollection) {
 		List<Point> finalHull = new ArrayList<Point>();
 		List<Point> leftHull = new ArrayList<Point>();
 		List<Point> rightHull = new ArrayList<Point>();
@@ -54,7 +54,7 @@ public class QuickHull {
 		return finalHull;
 	}
 
-	public void speedyHull(List<Point> set, List<Point> hull,
+	public static void speedyHull(List<Point> set, List<Point> hull,
 			Line line) {
 		// Get the points from the line.
 		Point pointA = line.pt1;
@@ -101,7 +101,7 @@ public class QuickHull {
 		speedyHull(setCB, hull, lineCB);
 	}
 	
-	public int[] getRangeIndices(List<Point> coordCollection) {
+	public static int[] getRangeIndices(List<Point> coordCollection) {
 
 		double minY = Double.MAX_VALUE;
 		double minX = Double.MAX_VALUE;
@@ -136,7 +136,7 @@ public class QuickHull {
 		return range;
 	}
 	
-	public int farthestPointIndex(List<Point> coordCollection, Line line) {
+	public static int farthestPointIndex(List<Point> coordCollection, Line line) {
 
 		double maxDist = Double.MIN_VALUE;
 		int farthestIndex = 0;
@@ -151,7 +151,7 @@ public class QuickHull {
 		return farthestIndex;
 	}
 	
-	public double distance(Line line, Point p) {
+	public static double distance(Line line, Point p) {
 		Point pointA = line.pt1;
 		Point pointB = line.pt2;
 		double dX = pointB.x - pointA.x;
