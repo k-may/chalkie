@@ -2,12 +2,11 @@ package com.kevmayo.chalkie;
 
 import android.os.Bundle;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
-import com.kevmayo.chalkie.interfaces.Screen;
-import com.kevmayo.chalkie.view.LoadingScreen;
+import com.kevmayo.chalkie.view.MainView;
 
 
-public class MainActivity extends AndroidGame {
+public class MainActivity extends MainView {
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -17,18 +16,5 @@ public class MainActivity extends AndroidGame {
 		MainController.getInstance().registerGame(this);
 	}
 
-
-    @Override
-	public Screen getInitScreen() {
-		// TODO Auto-generated method stub
-		return new LoadingScreen(this);
-	}
-	
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		getCurrentScreen().backButton();
-	}
-	
 	
 }

@@ -2,12 +2,16 @@ package com.kevmayo.chalkie.base;
 
 import android.graphics.Rect;
 
+import com.kevmayo.chalkie.events.EventType;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
+import com.kevmayo.chalkie.view.Screen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DisplayObject implements IDisplayObject {
 
@@ -16,11 +20,29 @@ public abstract class DisplayObject implements IDisplayObject {
     protected IDisplayObject _parent;
     protected List<IDisplayObject> _children;
     protected boolean _visible = true;
+    public int id;
+    private static int ID;
+    public static Map<Integer, String> ID_MAP;
 
     public DisplayObject(String name) {
+        id = ID++;
         _name = name;
         _children = new ArrayList<IDisplayObject>();
         _rect = new Rect();
+        init();
+    }
+
+    private void init(){
+        if(ID_MAP == null)
+            ID_MAP = new HashMap<Integer, String>();
+
+        ID_MAP.put(id, _name);
+
+        Screen screen = (Screen) getScreen();
+        if(screen != null) {
+            screen.registerEventListener(this, EventType.ADDED);
+            screen.registerEventListener(this, EventType.REMOVED);
+        }
     }
 
     @Override
@@ -88,7 +110,19 @@ public abstract class DisplayObject implements IDisplayObject {
         child.setParent(this);
         child.resize();
 
+        Screen screen = (Screen) getScreen();
+        if(screen != null)
+            screen.added((DisplayObject) child);
+
         return child;
+    }
+
+    private IDisplayObject getScreen(){
+        IDisplayObject screen = this;
+        while(screen != null && !(screen instanceof Screen))
+            screen = screen.getParent();
+
+        return screen;
     }
 
     public IDisplayObject removeChild(IDisplayObject child) {
@@ -122,5 +156,11 @@ public abstract class DisplayObject implements IDisplayObject {
     public void resize() {
     }
 
-    ;
+    public void notifyEvent(EventType type){
+
+    }
+
+    public List<IDisplayObject> get_children() {
+        return _children;
+    }
 }

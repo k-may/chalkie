@@ -14,9 +14,7 @@ import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IEdge;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
-import com.kevmayo.chalkie.interfaces.Pool;
-import com.kevmayo.chalkie.interfaces.Pool.PoolObjectFactory;
-import com.kevmayo.chalkie.interfaces.StrokePoint;
+import com.kevmayo.chalkie.base.Pool.PoolObjectFactory;
 
 import java.util.List;
 
@@ -92,8 +90,6 @@ public class StrokeRenderer extends DisplayObject {
 	
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		super.draw(g);
 
 		if (_strokeBuffer == null || _boardBuffer == null)
 			return;
@@ -102,7 +98,10 @@ public class StrokeRenderer extends DisplayObject {
 
 		if (_stroke != null)
 			g.drawImage(_strokeBuffer, 0, 0);
-	}
+
+        super.draw(g);
+
+    }
 
 	public void dispose() {
 		_strokeBuffer.dispose();

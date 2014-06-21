@@ -1,30 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#fff">
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="43dp"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
-    <com.kevmayo.chalkie.ChalkBoard
-        android:id="@+id/chalkBoard1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="46dp"
-        android:clickable="true"
-        android:duplicateParentState="true"
-        android:longClickable="true" />
 
 </RelativeLayout>
+

@@ -1,6 +1,5 @@
 package com.kevmayo.chalkie.android.framework;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
@@ -11,7 +10,7 @@ import android.graphics.Paint;
 
 import com.kevmayo.chalkie.interfaces.Image;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
-import com.kevmayo.chalkie.interfaces.StrokePoint;
+import com.kevmayo.chalkie.base.StrokePoint;
 
 public class AndroidImage implements Image {
 

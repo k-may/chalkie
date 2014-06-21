@@ -20,6 +20,7 @@ public class Assets {
 	public static Image canvas;
 	public static String Icon  = "icon";
 	public static String SaveButton = "saveButton";
+    public static String BlurButton = "blurButton";
 	
 	private Assets(){
 		_textures = new HashMap<String, TextureInfo>();
@@ -35,15 +36,17 @@ public class Assets {
 		Font_Franklin = Typeface.createFromAsset(game.getAssets(), "Interstate.ttf");
 		canvas = g.newImage("canvas.png", ImageFormat.RGB565);
 		
-		instance.setTexture(Icon, new TextureInfo(canvas, new Point(69, 12), new Point(175, 44)));
-		instance.setTexture(SaveButton, new TextureInfo(canvas, new Point(5, 5), new Point(47, 49)));
-		
+		instance.setTexture(Icon, new TextureInfo(canvas, new Point(153, 19), new Point(266, 100)));
+		instance.setTexture(SaveButton, new TextureInfo(canvas, new Point(9, 6), new Point(137, 143)));
+		instance.setTexture(BlurButton, new TextureInfo(canvas, new Point(9, 152), new Point(155, 162)));
+
 	}
 	
 	
 	
 	public void setTexture(String name, TextureInfo info){
 		_textures.put(name, info);
+        info.name = name;
 	}
 	
 	public TextureInfo getTexture(String name){

@@ -1,5 +1,7 @@
 package com.kevmayo.chalkie.interfaces;
 
+import com.kevmayo.chalkie.view.Screen;
+
 public interface Game {
 	public Audio getAudio();
 
@@ -14,5 +16,7 @@ public interface Game {
 	public Screen getCurrentScreen();
 
 	public Screen getInitScreen();
+
+    public Screen getHomeScreen();
 
 }

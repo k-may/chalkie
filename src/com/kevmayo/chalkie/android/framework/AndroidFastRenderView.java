@@ -15,7 +15,8 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 	Thread renderThread = null;
     volatile boolean running = true;
 	SurfaceHolder holder;
-
+    long startMillis = 0;
+    int millis;
 
 	public AndroidFastRenderView(AndroidGame game, Bitmap frameBuffer) {
 		super(game);
@@ -24,7 +25,13 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 		this.holder = getHolder();
 	}
 
-	public void resume() {
+
+    @Override
+    public boolean isInEditMode() {
+        return true;
+    }
+
+    public void resume() {
 		running = true;
 		renderThread = new Thread(this);
 		renderThread.start();
@@ -41,11 +48,12 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 			}
 		}
 	}
-	
+
 	@Override
 	public void run() {
 		Rect dstRect = new Rect();
 		long startTime = System.nanoTime();
+        startMillis = System.currentTimeMillis();
 		while(running){
 			if(!holder.getSurface().isValid())
 				continue;
@@ -56,7 +64,10 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 			if(deltaTime > 3.15){
 				deltaTime = (float) 3.15;
 			}
-			
+
+            AndroidGame.TIME_ELAPSED = (System.currentTimeMillis() - startMillis);
+            //android.util.Log.e("Time Class ", " Time value in millisecinds "+time);
+
 			MainController.getInstance().update(deltaTime);
 			game.getCurrentScreen().update(deltaTime);
 			game.getCurrentScreen().draw(game.getGraphics());

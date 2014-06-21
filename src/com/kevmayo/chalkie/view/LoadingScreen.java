@@ -2,10 +2,9 @@ package com.kevmayo.chalkie.view;
 
 import com.kevmayo.chalkie.Assets;
 import com.kevmayo.chalkie.android.framework.AndroidGame;
+import com.kevmayo.chalkie.events.ChalkieEvent;
+import com.kevmayo.chalkie.events.EventType;
 import com.kevmayo.chalkie.interfaces.Game;
-import com.kevmayo.chalkie.interfaces.Graphics;
-import com.kevmayo.chalkie.interfaces.Screen;
-import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 
 public class LoadingScreen extends Screen {
 
@@ -18,10 +17,10 @@ public class LoadingScreen extends Screen {
 		//Graphics g = game.getGraphics();
 		Assets.load((AndroidGame)game);
 
-		game.setScreen(new HomeScreen(game));
+        new ChalkieEvent(EventType.LOAD_COMPLETE, "loadComplete").dispatch();
 	}
 
-	@Override
+    @Override
 	public void pause() {
 		// TODO Auto-generated method stub
 

@@ -1,7 +1,5 @@
 package com.kevmayo.chalkie.base;
 
-import com.kevmayo.chalkie.interfaces.StrokePoint;
-
 import java.util.ArrayList;
 import java.util.List;
 

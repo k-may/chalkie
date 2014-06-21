@@ -17,9 +17,9 @@ public class AndroidInput implements Input {
 	public AndroidInput(Context context, View view, float scaleX, float scaleY) {
 
 		if (VERSION.SDK_INT < 5)
-			touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
+			touchHandler = new SingleTouchHandler(context, view, scaleX, scaleY);
 		else
-			touchHandler = new MultiTouchHandler(view, scaleX, scaleY);
+			touchHandler = new MultiTouchHandler(context, view, scaleX, scaleY);
 
 	}
 
@@ -42,5 +42,10 @@ public class AndroidInput implements Input {
 	public List<TouchEvent> getTouchEvents() {
         return touchHandler.getTouchEvents();
 	}
+
+    @Override
+    public List<TouchEvent> getGestureEvents() {
+        return touchHandler.getGestureEvents();
+    }
 
 }

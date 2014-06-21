@@ -14,4 +14,6 @@ public interface TouchHandler extends OnTouchListener {
 	public int getTouchY(int pointer);
 
 	public List<TouchEvent> getTouchEvents();
+
+    public List<TouchEvent> getGestureEvents();
 }

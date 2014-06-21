@@ -16,7 +16,7 @@ public interface IDisplayObject {
 	public String getName();
 	public boolean handleTouch(TouchEvent evt);
     public void resize();
-
     int get_numChildren();
     IDisplayObject get_childAt(int i);
+
 }

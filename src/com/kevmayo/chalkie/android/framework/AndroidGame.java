@@ -3,7 +3,6 @@ package com.kevmayo.chalkie.android.framework;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -17,7 +16,7 @@ import com.kevmayo.chalkie.interfaces.FileIO;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input;
-import com.kevmayo.chalkie.interfaces.Screen;
+import com.kevmayo.chalkie.view.Screen;
 /**
 *
 * Using http://www.kilobolt.com/day-1-introduction-to-android.html, amazing game framework tutorial
@@ -33,10 +32,12 @@ public abstract class AndroidGame extends Activity implements Game {
 	WakeLock wakeLock;
 	public static int SCREEN_WIDTH;
 	public static int SCREEN_HEIGHT;
+    public static long TIME_ELAPSED;
 
-	@Override
+    @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -50,17 +51,18 @@ public abstract class AndroidGame extends Activity implements Game {
 		SCREEN_HEIGHT = size.y;
 		trace("SCREEN DIMENSIONS : " + size.x + " / " + size.y);
 
-		Bitmap frameBuffer = Bitmap.createBitmap(SCREEN_WIDTH, SCREEN_HEIGHT, Config.ARGB_4444);
+		Bitmap frameBuffer = Bitmap.createBitmap(SCREEN_WIDTH, SCREEN_HEIGHT, Bitmap.Config.ARGB_4444);
 
-		renderView = new AndroidFastRenderView(this, frameBuffer);
+        renderView = new AndroidFastRenderView(this, frameBuffer);
 		graphics = new AndroidGraphics(getAssets(), frameBuffer);
 		fileIO = new AndroidFileIO(this);
 		audio = new AndroidAudio(this);
 		input = new AndroidInput(this, renderView, 1f, 1f);
 		screen = getInitScreen();
+
 		setContentView(renderView);
 
-		PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
 				"MyGame");
 	}
@@ -84,7 +86,16 @@ public abstract class AndroidGame extends Activity implements Game {
 			screen.dispose();
 	}
 
-	@Override
+
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        getCurrentScreen().backButton();
+    }
+
+
+    @Override
 	public Input getInput() {
 		return input;
 	}
@@ -113,6 +124,7 @@ public abstract class AndroidGame extends Activity implements Game {
 
 		this.screen.pause();
 		this.screen.dispose();
+
 		screen.resume();
 		screen.update(0);
 		this.screen = screen;

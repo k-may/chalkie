@@ -8,13 +8,18 @@ import com.kevmayo.chalkie.android.framework.AndroidGraphics;
 import com.kevmayo.chalkie.base.ButtonDO;
 import com.kevmayo.chalkie.base.StrokeRenderer;
 import com.kevmayo.chalkie.base.edges.BreakingEdge;
+import com.kevmayo.chalkie.base.math.ButtonHandler;
+import com.kevmayo.chalkie.events.ChalkieEvent;
+import com.kevmayo.chalkie.events.EventType;
 import com.kevmayo.chalkie.interfaces.Game;
-import com.kevmayo.chalkie.interfaces.Screen;
+import com.kevmayo.chalkie.interfaces.Graphics;
 
-public class ChalkBoardScreen extends Screen{
+public class ChalkBoardScreen extends Screen implements ButtonHandler{
 
 	private ButtonDO _saveBtn;
-	private StrokeRenderer _controller;
+	private ButtonDO _blurButton;
+
+    private StrokeRenderer _controller;
 	
 	public ChalkBoardScreen(Game game) {
 		super(game, Screen.CHALKBOARD);
@@ -28,13 +33,22 @@ public class ChalkBoardScreen extends Screen{
 		addChild(_controller);
 		
 
+        _blurButton = new ButtonDO(Assets.BlurButton, Assets.BlurButton);
+        _blurButton.setPos(AndroidGame.SCREEN_WIDTH - _blurButton.getRect().width(), AndroidGame.SCREEN_HEIGHT - _blurButton.getRect().height());
+        addChild(_blurButton);
+
 		_saveBtn = new ButtonDO(Assets.SaveButton, Assets.SaveButton);
 		_saveBtn.setPos(AndroidGame.SCREEN_WIDTH - _saveBtn.getRect().width()
 				- 10, 15);
 		addChild(_saveBtn);
 	}
-	
-	@Override
+
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+    }
+
+    @Override
 	public void pause() {
 		// TODO Auto-generated method stub
 		
@@ -68,6 +82,12 @@ public class ChalkBoardScreen extends Screen{
     @Override
     public void resize() {
 
+    }
+
+    @Override
+    public void pressed(String name) {
+        if(name ==  _saveBtn.getName())
+            new ChalkieEvent(EventType.SAVE_BUTTON_PRESSED, "saveChalkBoard").dispatch();
     }
 
 }
