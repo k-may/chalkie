@@ -1,9 +1,11 @@
 package com.kevmayo.chalkie.interfaces;
 
-import java.util.List;
+import android.graphics.Bitmap;
 
-import com.kevmayo.chalkie.base.StrokePoint;
+import com.kevmayo.chalkie.base.stroke.StrokePoint;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
+
+import java.util.List;
 
 public interface Image {
 	public int getWidth();
@@ -17,4 +19,6 @@ public interface Image {
 	public void setPixels(List<StrokePoint> points);
 	
 	public void merge(Image image);
+
+    Bitmap getBitmap();
 }

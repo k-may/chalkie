@@ -5,6 +5,10 @@ public class ChalkieEvent {
 
 	EventType _type;
 	String _message;
+
+    public ChalkieEvent(){
+
+    }
 	
 	public ChalkieEvent(EventType type, String message){
 		_type = type;

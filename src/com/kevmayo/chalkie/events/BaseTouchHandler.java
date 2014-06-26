@@ -5,9 +5,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.base.Pool;
 import com.kevmayo.chalkie.interfaces.Input;
+import com.kevmayo.chalkie.view.MainView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +52,14 @@ public abstract class BaseTouchHandler implements TouchHandler {
     protected final class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private static final int SWIPE_THRESHOLD = 100;
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            synchronized (this){
+                createTouchEvent(Input.TouchEvent.DOUBLE_TAP, (int) (e.getX() * scaleX), (int) (e.getY() * scaleY) );
+                return true;
+            }
+        }
 
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -110,7 +118,7 @@ public abstract class BaseTouchHandler implements TouchHandler {
         touchEvent.type = type;
         touchEvent.x = x;
         touchEvent.y = y;
-        touchEvent.time = AndroidGame.TIME_ELAPSED;
+        touchEvent.time = MainView.TIME_ELAPSED;
         touchEventsBuffer.add(touchEvent);
     }
 
@@ -141,7 +149,7 @@ public abstract class BaseTouchHandler implements TouchHandler {
         touchEvent.downY = (int) downY;
         touchEvent.x = (int) endX;
         touchEvent.y = (int) endY;
-        touchEvent.time = AndroidGame.TIME_ELAPSED;
+        touchEvent.time = MainView.TIME_ELAPSED;
         gestureEventsBuffer.add(touchEvent);
     }
 

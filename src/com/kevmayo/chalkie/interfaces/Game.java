@@ -9,6 +9,8 @@ public interface Game {
 
 	public FileIO getFileIO();
 
+    public void draw();
+
 	public Graphics getGraphics();
 
 	public void setScreen(Screen screen);
@@ -18,5 +20,8 @@ public interface Game {
 	public Screen getInitScreen();
 
     public Screen getHomeScreen();
+
+    public void saveImage();
+
 
 }

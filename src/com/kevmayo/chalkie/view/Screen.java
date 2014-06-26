@@ -3,7 +3,6 @@ package com.kevmayo.chalkie.view;
 import android.graphics.Rect;
 import android.util.Log;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.base.DisplayObject;
 import com.kevmayo.chalkie.base.exceptions.ChalkieException;
 import com.kevmayo.chalkie.events.EventType;
@@ -84,7 +83,15 @@ public abstract class Screen implements IScreen {
     public void draw(Graphics g) {
         for (int i = 0; i < _children.size(); i++)
             _children.get(i).draw(g);
+
+       // g.text("frameRate : " + MainView.instance.frameRate, 2, 2);
+       // log(String.valueOf(MainView.instance.frameRate));
     }
+
+    private void log(String msg) {
+        Log.i(getClass().getName(), msg);
+    }
+
 
     public IDisplayObject getParent() {
         return this;
@@ -130,8 +137,8 @@ public abstract class Screen implements IScreen {
     }
 
     public Rect getRect() {
-        return new Rect(0, 0, AndroidGame.SCREEN_WIDTH,
-                AndroidGame.SCREEN_HEIGHT);
+        return new Rect(0, 0, MainView.SCREEN_WIDTH,
+                MainView.SCREEN_HEIGHT);
     }
 
     @Override

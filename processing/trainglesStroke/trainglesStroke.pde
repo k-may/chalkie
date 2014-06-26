@@ -5,34 +5,48 @@ Boolean isDown = false;
 int lineWidth = 10;
 PVector[] positions;
 int translateZ = 10;
+PGraphics pg;
+PShader shdr;
 void setup() {
-  size(500, 500, P3D);
+  size(500, 500, P2D);
   smooth();
+    pg = createGraphics(500, 500, P2D);
+  pg.noSmooth();
+    pg.beginDraw();
+  pg.background(0);
+  pg.endDraw();
+  shdr = loadShader("frag.glsl");
+    shdr.set("resolution", float(pg.width), float(pg.height));  
   positions = new PVector[4];
 }
 
 void draw() {
+  background(255 );
   if (isDragging) {
   } 
-    translate(0,0,2);
+    translate(0,0);//,2);
   if (isDown) {
     
     updateStroke();
     
-
+shdr.set("time", millis()/1000.0);
     
     //line(pos.x, pos.y, mouseX, mouseY);
+    pg.beginDraw();
+    pg.shader(shdr);
     pos = new PVector(mouseX, mouseY);
-    beginShape();
-    vertex(positions[0].x, positions[0].y, -2);
-    vertex(positions[1].x, positions[1].y, -2);
-    vertex(positions[3].x, positions[3].y, 0);
+    pg.beginShape();
+    pg.vertex(positions[0].x, positions[0].y);//, -2);
+   pg.vertex(positions[1].x, positions[1].y);//, -2);
+    pg.vertex(positions[3].x, positions[3].y);//, 0);
     
-    vertex(positions[0].x, positions[0].y, -2);
-    vertex(positions[2].x, positions[2].y, 0);
-    vertex(positions[3].x, positions[3].y, 0);
+    pg.vertex(positions[0].x, positions[0].y);//, -2);
+    pg.vertex(positions[2].x, positions[2].y);//, 0);
+    pg.vertex(positions[3].x, positions[3].y);//, 0);
     
-    endShape();
+    pg.endShape();
+    pg.endDraw();
+
     
     /*
     
@@ -45,6 +59,7 @@ void draw() {
     line(positions[0].x, positions[0].y, positions[3].x, positions[3].y);
     */
   }
+      image(pg, 0, 0 ,width, height);
 }
 //
 void startStroke() {
@@ -72,4 +87,3 @@ void mousePressed() {
 void mouseReleased() {
   isDown = false;
 }
-

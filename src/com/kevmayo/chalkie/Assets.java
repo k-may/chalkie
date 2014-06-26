@@ -1,10 +1,11 @@
 package com.kevmayo.chalkie;
 
+import android.app.Activity;
 import android.graphics.Typeface;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.base.TextureInfo;
 import com.kevmayo.chalkie.base.math.Point;
+import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
 import com.kevmayo.chalkie.interfaces.Image;
@@ -16,7 +17,12 @@ public class Assets {
 	
 	public static Assets instance = null;
 	public static Typeface Font_Franklin;
-	private static Map<String, TextureInfo> _textures;
+
+    public static Map<String, TextureInfo> get_textures() {
+        return _textures;
+    }
+
+    private static Map<String, TextureInfo> _textures;
 	public static Image canvas;
 	public static String Icon  = "icon";
 	public static String SaveButton = "saveButton";
@@ -26,14 +32,14 @@ public class Assets {
 		_textures = new HashMap<String, TextureInfo>();
 	}
 	
-	public static void load(AndroidGame game){
+	public static void load(Game game){
 		
 		Graphics g = game.getGraphics();
 		
 		if(instance == null)
 			instance = new Assets();
 
-		Font_Franklin = Typeface.createFromAsset(game.getAssets(), "Interstate.ttf");
+		Font_Franklin = Typeface.createFromAsset(((Activity)game).getAssets(), "Interstate.ttf");
 		canvas = g.newImage("canvas.png", ImageFormat.RGB565);
 		
 		instance.setTexture(Icon, new TextureInfo(canvas, new Point(153, 19), new Point(266, 100)));
@@ -55,5 +61,7 @@ public class Assets {
 		
 		return null;
 	}
+
+
 
 }

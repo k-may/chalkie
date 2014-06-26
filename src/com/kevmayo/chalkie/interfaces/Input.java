@@ -14,6 +14,7 @@ public interface Input {
         public static final int SWIPE_DOWN = 6;
         public static final int SWIPE_UP = 7;
         public static final int TAPPED = 8;
+        public static final int DOUBLE_TAP = 9;
 
         public int downX, downY;
         public float pressure;

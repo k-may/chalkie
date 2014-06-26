@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.interfaces.IEdge;
-import com.kevmayo.chalkie.base.StrokePoint;
+import com.kevmayo.chalkie.base.stroke.StrokePoint;
 
 public class SimpleEdge implements IEdge<Point>{
 

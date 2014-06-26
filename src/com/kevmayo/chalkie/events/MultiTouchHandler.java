@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
+import com.kevmayo.chalkie.view.MainView;
 
 public class MultiTouchHandler extends BaseTouchHandler{
     private static final int MAX_TOUCHPOINTS = 10;
@@ -48,7 +48,7 @@ public class MultiTouchHandler extends BaseTouchHandler{
                     touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
                     touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
                     touchEvent.pressure = event.getPressure(i);
-                    touchEvent.time = AndroidGame.TIME_ELAPSED;
+                    touchEvent.time = MainView.TIME_ELAPSED;
                     isTouched[i] = true;
                     id[i] = pointerId;
                     touchEventsBuffer.add(touchEvent);
@@ -63,7 +63,7 @@ public class MultiTouchHandler extends BaseTouchHandler{
                     touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
                     touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
                     touchEvent.pressure = event.getPressure(i);
-                    touchEvent.time = AndroidGame.TIME_ELAPSED;
+                    touchEvent.time = MainView.TIME_ELAPSED;
                     isTouched[i] = false;
                     id[i] = -1;
                     touchEventsBuffer.add(touchEvent);
@@ -76,7 +76,7 @@ public class MultiTouchHandler extends BaseTouchHandler{
                     touchEvent.x = touchX[i] = (int) (event.getX(i) * scaleX);
                     touchEvent.y = touchY[i] = (int) (event.getY(i) * scaleY);
                     touchEvent.pressure = event.getPressure(i);
-                    touchEvent.time = AndroidGame.TIME_ELAPSED;
+                    touchEvent.time = MainView.TIME_ELAPSED;
                     isTouched[i] = true;
                     id[i] = pointerId;
                     touchEventsBuffer.add(touchEvent);

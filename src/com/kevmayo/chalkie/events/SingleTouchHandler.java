@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
+import com.kevmayo.chalkie.view.MainView;
 
 public class SingleTouchHandler extends BaseTouchHandler {
     boolean isTouched;
@@ -38,7 +38,7 @@ public class SingleTouchHandler extends BaseTouchHandler {
 
             touchEvent.x = touchX = (int) (event.getX() * scaleX);
             touchEvent.y = touchY = (int) (event.getY() * scaleY);
-            touchEvent.time = AndroidGame.TIME_ELAPSED;
+            touchEvent.time = MainView.TIME_ELAPSED;
             touchEventsBuffer.add(touchEvent);
 
             return true;

@@ -1,25 +1,23 @@
 package com.kevmayo.chalkie.view;
 
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.Log;
 
 import com.kevmayo.chalkie.Assets;
-
 import com.kevmayo.chalkie.base.ButtonDO;
 import com.kevmayo.chalkie.base.TextureDO;
-import com.kevmayo.chalkie.android.framework.AndroidGame;
-
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.Input;
+
+import processing.core.PImage;
 
 public class HomeScreen extends Screen {
 
     private HomeBg _bg;
     private TextureDO _icon;
     private ButtonDO _saveBtn;
-
+private PImage _bgImage;
     public static HomeScreen instance;
 
     public HomeScreen(Game game) {
@@ -31,17 +29,17 @@ public class HomeScreen extends Screen {
         instance = this;
 
         _bg = new HomeBg();
-        _bg.setRect(new Rect(0, 0, AndroidGame.SCREEN_WIDTH, AndroidGame.SCREEN_HEIGHT));
+        _bg.setRect(new Rect(0, 0, MainView.SCREEN_WIDTH, MainView.SCREEN_HEIGHT));
         addChild(_bg);
 
         _icon = new TextureDO(Assets.Icon);
         _icon.setPos(30, 15);
-        addChild(_icon);
+        //addChild(_icon);
 
         _saveBtn = new SaveButton();
-        _saveBtn.setPos(AndroidGame.SCREEN_WIDTH - _saveBtn.getRect().width()
+        _saveBtn.setPos(MainView.SCREEN_WIDTH - _saveBtn.getRect().width()
                 - 10, 15);
-        addChild(_saveBtn);
+        //addChild(_saveBtn);
     }
 
     // TODO add buttons
@@ -49,7 +47,11 @@ public class HomeScreen extends Screen {
     @Override
     public void draw(Graphics g) {
         // TODO Auto-generated method stub
-        g.clearScreen(Color.argb(255, 255, 255, 255));
+        g.background(0xffffff);
+
+        if(_bgImage != null)
+            g.image(_bgImage, 0, 0);
+
         super.draw(g);
     }
 
@@ -105,4 +107,7 @@ public class HomeScreen extends Screen {
 
     }
 
+    public void setBackgroundImage(PImage image) {
+        _bgImage = image;
+    }
 }

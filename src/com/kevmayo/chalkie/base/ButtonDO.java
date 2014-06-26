@@ -32,11 +32,9 @@ public class ButtonDO extends DisplayObject {
 		super.draw(g);
 
 		if (_isOver)
-			g.drawImage(_over.image, _rect.left, _rect.top, (int)_over.pos.x,
-					(int)_over.pos.y, (int)_over.size.x, (int)_over.size.y);
+			g.drawImage(_over.name, _rect.left, _rect.top);
 		else
-			g.drawImage(_out.image, _rect.left, _rect.top, (int)_out.pos.x,
-					(int)_out.pos.y, (int)_out.size.x, (int)_out.size.y);
+			g.drawImage(_out.name, _rect.left, _rect.top);
 	}
 
     @Override

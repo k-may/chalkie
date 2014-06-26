@@ -30,6 +30,9 @@
             <file
                 name="OCRBStd.otf"
                 path="C:\work\Chalkie_Android\chalkie\assets\OCRBStd.otf" />
+            <file
+                name="frag.glsl"
+                path="C:\work\Chalkie_Android\chalkie\assets\frag.glsl" />
         </source>
     </dataSet>
     <dataSet config="debug" >

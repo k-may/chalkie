@@ -1,9 +1,5 @@
 package com.kevmayo.chalkie.view;
 
-import android.graphics.Color;
-import android.graphics.Path;
-
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.base.DisplayObject;
 import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.events.ChalkieEvent;
@@ -87,7 +83,7 @@ public class HomeBg extends DisplayObject {
         startPoints = new Point[]{c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12};
         destPoints = new Point[]{d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12};
 
-        if(points == null)
+        if (points == null)
             points = new Point[startPoints.length];
 
         for (int i = 0; i < startPoints.length; i++)
@@ -101,24 +97,23 @@ public class HomeBg extends DisplayObject {
     public void draw(Graphics g) {
         super.draw(g);
 
-        Path p = new Path();
-        p.setFillType(Path.FillType.EVEN_ODD);
-        p.moveTo(tL.x, tL.y);
-        p.lineTo(tR.x, tR.y);
-        p.lineTo(bR.x, bR.y);
-        p.lineTo(bL.x, bL.y);
-        p.close();
+        g.fill(0xff000000);
+        g.moveTo(tL.x, tL.y);
+        g.lineTo(tR.x, tR.y);
+        g.lineTo(bR.x, bR.y);
+        g.lineTo(bL.x, bL.y);
+        g.lineTo(tL.x, tL.y);
+        // p.close();
 
         for (int i = 0; i < points.length; i++) {
             if (i == 0)
-                p.moveTo(points[i].x, points[i].y);
+                g.moveTo(points[i].x, points[i].y);
             else
-                p.lineTo(points[i].x, points[i].y);
+                g.lineTo(points[i].x, points[i].y);
         }
 
-        p.close();
+        g.close();
 
-        g.drawPath(p, Color.BLACK);
     }
 
     @Override
@@ -128,7 +123,7 @@ public class HomeBg extends DisplayObject {
         if (_isAnimatingOut || _isAnimatingIn) {
             _invalidated = true;
 
-            float elapsed = AndroidGame.TIME_ELAPSED - _startTime;
+            float elapsed = MainView.TIME_ELAPSED - _startTime;
 
             float r = Expo.easeIn(elapsed, 0.f, 1.f, _duration);
             r = Math.min(1.f, Math.max(0.f, r));
@@ -140,11 +135,11 @@ public class HomeBg extends DisplayObject {
         }
         //update animation
         if (_invalidated) {
-            if(_isAnimatingOut) {
+            if (_isAnimatingOut) {
                 for (int i = 0; i < points.length; i++) {
                     points[i].lerpTo(destPoints[i], _ratio);
                 }
-            }else if(_isAnimatingIn){
+            } else if (_isAnimatingIn) {
                 for (int i = 0; i < points.length; i++) {
                     points[i].lerpTo(startPoints[i], _ratio);
                 }
@@ -186,7 +181,7 @@ public class HomeBg extends DisplayObject {
     }
 
     public void reset() {
-        _startTime = (int) AndroidGame.TIME_ELAPSED;
+        _startTime = (int) MainView.TIME_ELAPSED;
         _isAnimatingOut = false;
         _isAnimatingIn = true;
     }

@@ -1,13 +1,16 @@
 package com.kevmayo.chalkie;
 
-import com.kevmayo.chalkie.android.framework.AndroidGame;
 import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
+import com.kevmayo.chalkie.events.ImageSavedEvent;
 import com.kevmayo.chalkie.events.RegisterEvent;
+import com.kevmayo.chalkie.events.SaveEvent;
+import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
 import com.kevmayo.chalkie.interfaces.Input;
-import com.kevmayo.chalkie.view.Screen;
 import com.kevmayo.chalkie.view.ChalkBoardScreen;
+import com.kevmayo.chalkie.view.HomeScreen;
+import com.kevmayo.chalkie.view.Screen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +19,7 @@ import java.util.Map;
 
 public class MainController {
 
-    AndroidGame game;
+    Game game;
     List<ChalkieEvent> _queue;
     Map<String, IDisplayObject> _observers;
 
@@ -35,7 +38,7 @@ public class MainController {
         return instance;
     }
 
-    public void registerGame(AndroidGame game) {
+    public void registerGame(Game game) {
         this.game = game;
     }
 
@@ -57,8 +60,9 @@ public class MainController {
     private void runTouches() {
         List<Input.TouchEvent> touches = game.getInput().getTouchEvents();
 
-        boolean handled = false;
+        boolean handled;
         for (Input.TouchEvent evt : touches) {
+            handled = false;
             ArrayList<IDisplayObject> targets = game.getCurrentScreen().getTargetsAtLocation(evt.x, evt.y);
             for (IDisplayObject target : targets) {
                 //handle event propagation
@@ -85,7 +89,7 @@ public class MainController {
 
     private void processEvent(ChalkieEvent evt) {
         if (evt.getType() == EventType.SAVE_BUTTON_PRESSED)
-            seeSavePressed();
+            seeSavePressed((SaveEvent) evt);
         else if (evt.getType() == EventType.LAUNCH_BUTTON_PRESSED)
             seeLaunchPressed();
         else if (evt.getType() == EventType.LOAD_COMPLETE)
@@ -94,6 +98,14 @@ public class MainController {
             seeChildAdded(evt);
         else if (evt.getType() == EventType.REGISTER_EVENT)
             registerHandler((RegisterEvent) evt);
+        else if(evt.getType() == EventType.IMAGE_SAVED)
+            seeImageSaved((ImageSavedEvent) evt);
+    }
+
+    private void seeImageSaved(ImageSavedEvent evt) {
+        HomeScreen home = (HomeScreen) game.getHomeScreen();
+        home.setBackgroundImage(evt.pImage);
+        game.setScreen(game.getInitScreen());
     }
 
     private void registerHandler(RegisterEvent evt) {
@@ -108,13 +120,13 @@ public class MainController {
         game.setScreen(game.getHomeScreen());
     }
 
-    private void seeSavePressed() {
+    private void seeSavePressed(SaveEvent evt) {
         // TODO Auto-generated method stub
         if (game.getCurrentScreen().getName() == Screen.HOME)
             game.setScreen(new ChalkBoardScreen(game));
         else if (game.getCurrentScreen().getName() == Screen.CHALKBOARD) {
             //save drawing
-            game.setScreen(game.getInitScreen());
+           game.saveImage();
         }
     }
 

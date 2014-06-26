@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.kevmayo.chalkie.MainController;
+import com.kevmayo.chalkie.interfaces.Graphics;
 
 public class AndroidFastRenderView extends SurfaceView implements Runnable {
 
@@ -15,13 +15,12 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 	Thread renderThread = null;
     volatile boolean running = true;
 	SurfaceHolder holder;
-    long startMillis = 0;
-    int millis;
 
-	public AndroidFastRenderView(AndroidGame game, Bitmap frameBuffer) {
+
+	public AndroidFastRenderView(AndroidGame game, Graphics graphics) {
 		super(game);
 		this.game = game;
-		this.frameBuffer = frameBuffer;
+		this.frameBuffer = ((AndroidGraphics)graphics).frameBuffer;
 		this.holder = getHolder();
 	}
 
@@ -53,24 +52,13 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
 	public void run() {
 		Rect dstRect = new Rect();
 		long startTime = System.nanoTime();
-        startMillis = System.currentTimeMillis();
+
 		while(running){
 			if(!holder.getSurface().isValid())
 				continue;
-			
-			float deltaTime = (System.nanoTime() - startTime) /  10000000.000f;
-			startTime = System.nanoTime();
-			
-			if(deltaTime > 3.15){
-				deltaTime = (float) 3.15;
-			}
 
-            AndroidGame.TIME_ELAPSED = (System.currentTimeMillis() - startMillis);
-            //android.util.Log.e("Time Class ", " Time value in millisecinds "+time);
+            game.draw();
 
-			MainController.getInstance().update(deltaTime);
-			game.getCurrentScreen().update(deltaTime);
-			game.getCurrentScreen().draw(game.getGraphics());
 			
 			Canvas canvas = holder.lockCanvas();
 			canvas.getClipBounds(dstRect);	

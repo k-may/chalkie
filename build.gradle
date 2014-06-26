@@ -7,8 +7,6 @@ buildscript {
     }
 }
 apply plugin: 'android'
-
-
 android {
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
@@ -40,4 +38,8 @@ android {
     }
     buildTypes {
     }
+}
+
+dependencies {
+    compile project(':android-core')
 }

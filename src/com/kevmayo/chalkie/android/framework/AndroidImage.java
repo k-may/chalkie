@@ -1,16 +1,16 @@
 package com.kevmayo.chalkie.android.framework;
 
-import java.util.List;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
-import com.kevmayo.chalkie.interfaces.Image;
+import com.kevmayo.chalkie.base.stroke.StrokePoint;
 import com.kevmayo.chalkie.interfaces.Graphics.ImageFormat;
-import com.kevmayo.chalkie.base.StrokePoint;
+import com.kevmayo.chalkie.interfaces.Image;
+
+import java.util.List;
 
 public class AndroidImage implements Image {
 
@@ -55,7 +55,12 @@ public class AndroidImage implements Image {
 		}
 	}
 
-	@Override
+    @Override
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    @Override
 	public void merge(Image image) {
 		// TODO Auto-generated method stub
 		Bitmap src = ((AndroidImage) image).bitmap;

@@ -8,7 +8,7 @@ import com.kevmayo.chalkie.base.math.Line;
 import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.base.math.QuickHull;
 import com.kevmayo.chalkie.interfaces.IEdge;
-import com.kevmayo.chalkie.base.StrokePoint;
+import com.kevmayo.chalkie.base.stroke.StrokePoint;
 
 import java.util.ArrayList;
 import java.util.List;
