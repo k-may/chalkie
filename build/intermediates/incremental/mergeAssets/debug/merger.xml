@@ -33,6 +33,9 @@
             <file
                 name="frag.glsl"
                 path="C:\work\Chalkie_Android\chalkie\assets\frag.glsl" />
+            <file
+                name="loading.png"
+                path="C:\work\Chalkie_Android\chalkie\assets\loading.png" />
         </source>
     </dataSet>
     <dataSet config="debug" >

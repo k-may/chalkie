@@ -1,46 +1,53 @@
 package com.kevmayo.chalkie.view;
 
 import com.kevmayo.chalkie.Assets;
-import com.kevmayo.chalkie.events.ChalkieEvent;
-import com.kevmayo.chalkie.events.EventType;
 import com.kevmayo.chalkie.interfaces.Game;
+import com.kevmayo.chalkie.interfaces.Graphics;
+import com.kevmayo.chalkie.interfaces.Image;
+
+import processing.core.PImage;
 
 public class LoadingScreen extends Screen {
 
-	public LoadingScreen(Game game) {
-		super(game, "home");
-	}
+    boolean loading = false;
+    PImage image;
 
-	@Override
-	public void update(float time) {
-		//Graphics g = game.getGraphics();
-		Assets.load(game);
 
-        new ChalkieEvent(EventType.LOAD_COMPLETE, "loadComplete").dispatch();
-	}
+    public LoadingScreen(Game game) {
+        super(game, "home");
+
+
+    }
 
     @Override
-	public void pause() {
-		// TODO Auto-generated method stub
+    public void draw(Graphics g) {
+        g.background(0);
 
-	}
+        if (image == null) {
+            Image loading = g.newImage("loading.png", Graphics.ImageFormat.RGB565);
+            image = new PImage(loading.getBitmap());//, 0,0,(int)loading.getWidth(), (int)loading.getHeight());
+        }
 
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
+        g.image(image, (getRect().width() -  image.width)/2, (getRect().height() - image.height)/2);
 
-	}
+    }
 
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
+    @Override
+    public void update(float time) {
+        if (!loading) {
+            loading = true;
+            Assets.getInstance().execute("canvas.png");
+        }
+    }
 
-	}
+    @Override
+    public void pause() {
 
-	@Override
-	public void backButton() {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void backButton() {
+
+    }
 
 }

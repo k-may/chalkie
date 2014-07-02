@@ -15,22 +15,29 @@ public interface Graphics<T> {
 	}
 
     public void strokeWeight(float width);
-    public void stroke(int color);
-    public void fill(int color);
 
-	public Image newImage(String fileName, ImageFormat format);
-	public void background(int color);
-	public void drawPath(Path path, int color);
-	public void line(float x, float y, float x2, float y2);
-	public void rect(float x, float y, float width, float height);
+    void stroke(int color);
+    void stroke(int r, int g, int b);
+
+    void fill(int color);
+    void fill(int r, int g, int b);
+
+    Image newImage(String fileName, ImageFormat format);
+
+    void background(int r, int g, int b);
+	void background(int color);
+
+	void drawPath(Path path, int color);
+	void line(float x, float y, float x2, float y2);
+	void rect(float x, float y, float width, float height);
 	//public void drawImage(Image image, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight);
-	public void drawImage(String name, float x, float y);
+	void drawImage(String name, float x, float y);
 	void text(String text, float x, float y);
-	public int getWidth();
-	public int getHeight();
-	public void drawARGB(int i, int j, int k, int l);
-    public void moveTo(float x, float y);
-    public void lineTo(float x, float y);
-    public void close();
+	int getWidth();
+	int getHeight();
+	void drawARGB(int i, int j, int k, int l);
+    void moveTo(float x, float y);
+    void lineTo(float x, float y);
+    void close();
 }
 

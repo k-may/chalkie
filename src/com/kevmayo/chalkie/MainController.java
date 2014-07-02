@@ -1,16 +1,18 @@
 package com.kevmayo.chalkie;
 
+import android.util.Log;
+
+import com.kevmayo.chalkie.base.DisplayObject;
+import com.kevmayo.chalkie.base.ScrollableDO;
 import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
-import com.kevmayo.chalkie.events.ImageSavedEvent;
 import com.kevmayo.chalkie.events.RegisterEvent;
-import com.kevmayo.chalkie.events.SaveEvent;
+import com.kevmayo.chalkie.events.RequestImageEvent;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
 import com.kevmayo.chalkie.interfaces.Input;
-import com.kevmayo.chalkie.view.ChalkBoardScreen;
 import com.kevmayo.chalkie.view.HomeScreen;
-import com.kevmayo.chalkie.view.Screen;
+import com.kevmayo.chalkie.view.MenuImages;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,14 +23,14 @@ public class MainController {
 
     Game game;
     List<ChalkieEvent> _queue;
-    Map<String, IDisplayObject> _observers;
-
+    Map<EventType, ArrayList<IDisplayObject>> _observers;
+    MenuImages _currentMenu;
     private static MainController instance = null;
 
     protected MainController() {
         // Exists only to defeat instantiation.
         _queue = new ArrayList<ChalkieEvent>();
-        _observers = new HashMap<String, IDisplayObject>();
+        _observers = new HashMap<EventType, ArrayList<IDisplayObject>>();
     }
 
     public static MainController getInstance() {
@@ -88,50 +90,84 @@ public class MainController {
 
 
     private void processEvent(ChalkieEvent evt) {
-        if (evt.getType() == EventType.SAVE_BUTTON_PRESSED)
-            seeSavePressed((SaveEvent) evt);
-        else if (evt.getType() == EventType.LAUNCH_BUTTON_PRESSED)
-            seeLaunchPressed();
-        else if (evt.getType() == EventType.LOAD_COMPLETE)
-            seeLoadComplete();
-        else if (evt.getType() == EventType.ADDED)
-            seeChildAdded(evt);
-        else if (evt.getType() == EventType.REGISTER_EVENT)
-            registerHandler((RegisterEvent) evt);
-        else if(evt.getType() == EventType.IMAGE_SAVED)
-            seeImageSaved((ImageSavedEvent) evt);
+
+        switch (evt.getType()) {
+
+            case STROKE_ADDED:
+                break;
+            case STROKE_REMOVED:
+                break;
+            case MANAGER_ADDED:
+                break;
+            case MANAGER_READY:
+                break;
+            case SAVE_BUTTON_PRESSED:
+                break;
+            case LOAD_COMPLETE:
+                seeLoadComplete();
+                break;
+            case ADDED:
+                break;
+            case REGISTER_EVENT:
+                registerHandler((RegisterEvent) evt);
+                break;
+            case REMOVED:
+                break;
+            case LAUNCH_BUTTON_PRESSED:
+                break;
+            case IMAGE_SAVED:
+                break;
+            case REQUEST_IMAGE:
+                seeRequestImage((RequestImageEvent) evt);
+                break;
+            case IMAGE_MENU_CREATED:
+                break;
+            case ASSETS_LOADED:
+                seeLoadComplete();
+                break;
+            case ANIMATION_COMPLETE:
+                break;
+        }
+
+        seeRegistrants(evt);
     }
 
-    private void seeImageSaved(ImageSavedEvent evt) {
-        HomeScreen home = (HomeScreen) game.getHomeScreen();
-        home.setBackgroundImage(evt.pImage);
-        game.setScreen(game.getInitScreen());
+    private void seeRequestImage(RequestImageEvent evt) {
+        HomeScreen screen = (HomeScreen) game.getHomeScreen();
+        DisplayObject cont = screen.getContainer();
+        if (cont != null && cont instanceof ScrollableDO) {
+
+            int index = ((ScrollableDO) cont).getItemIndex(evt.imageView);
+            String path = game.getImagesModel().getPath(index);
+
+            game.getImagesModel().loadImage(evt.imageView, path);
+
+        }
+    }
+
+    private void log(String s) {
+        Log.i(this.getClass().getSimpleName(), s);
     }
 
     private void registerHandler(RegisterEvent evt) {
+        EventType registerType = evt.getRegisterType();
 
+        if (!_observers.containsKey(registerType))
+            _observers.put(registerType, new ArrayList<IDisplayObject>());
+
+        _observers.get(registerType).add(evt.getListener());
     }
 
-    private void seeChildAdded(ChalkieEvent evt) {
 
+    private void seeRegistrants(ChalkieEvent evt) {
+        if (_observers.containsKey(evt.getType())) {
+            for (IDisplayObject obj : _observers.get(evt.getType()))
+                obj.notifyEvent(evt);
+        }
     }
 
     private void seeLoadComplete() {
         game.setScreen(game.getHomeScreen());
     }
 
-    private void seeSavePressed(SaveEvent evt) {
-        // TODO Auto-generated method stub
-        if (game.getCurrentScreen().getName() == Screen.HOME)
-            game.setScreen(new ChalkBoardScreen(game));
-        else if (game.getCurrentScreen().getName() == Screen.CHALKBOARD) {
-            //save drawing
-           game.saveImage();
-        }
-    }
-
-    private void seeLaunchPressed() {
-        if (game.getCurrentScreen().getName() == Screen.HOME)
-            game.setScreen(new ChalkBoardScreen(game));
-    }
 }

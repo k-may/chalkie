@@ -3,6 +3,7 @@ package com.kevmayo.chalkie.base;
 import android.graphics.Rect;
 
 import com.kevmayo.chalkie.Assets;
+import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
@@ -109,6 +110,11 @@ public class TextureDO implements IDisplayObject {
     @Override
     public IDisplayObject get_childAt(int i) {
         return null;
+    }
+
+    @Override
+    public void notifyEvent(ChalkieEvent evt) {
+
     }
 
 }

@@ -14,6 +14,7 @@ import com.kevmayo.chalkie.android.framework.AndroidFileIO;
 import com.kevmayo.chalkie.android.framework.AndroidInput;
 import com.kevmayo.chalkie.android.processing.PAndroidGame;
 import com.kevmayo.chalkie.android.processing.PAndroidGraphics;
+import com.kevmayo.chalkie.base.ImagesModel;
 import com.kevmayo.chalkie.events.ImageSavedEvent;
 import com.kevmayo.chalkie.interfaces.Audio;
 import com.kevmayo.chalkie.interfaces.FileIO;
@@ -43,7 +44,7 @@ public class MainView extends PAndroidGame {
     int millis;
 
     public static MainView instance;
-
+private ImagesModel _imagesModel;
     private HomeScreen homeScreen;
     private boolean _saveImage;
 
@@ -65,7 +66,7 @@ public class MainView extends PAndroidGame {
         SCREEN_HEIGHT = size.y;
         trace("SCREEN DIMENSIONS : " + size.x + " / " + size.y);
 
-        screen = getInitScreen();
+
 
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK,
@@ -80,6 +81,8 @@ public class MainView extends PAndroidGame {
         graphics = new PAndroidGraphics(this);
         fileIO = new AndroidFileIO(this);
         audio = new AndroidAudio(this);
+
+        screen = getInitScreen();
     }
 
     @Override
@@ -156,8 +159,10 @@ public class MainView extends PAndroidGame {
         if (screen == null)
             throw new IllegalArgumentException("Screen must not be null");
 
-        this.screen.pause();
-        this.screen.dispose();
+        if(this.screen != null) {
+            this.screen.pause();
+            this.screen.dispose();
+        }
 
         screen.resume();
         screen.update(0);
@@ -183,4 +188,11 @@ public class MainView extends PAndroidGame {
     public void saveImage() {
         _saveImage = true;
     }
+
+    @Override
+    public ImagesModel getImagesModel() {
+        return _imagesModel;
+    }
+
+
 }

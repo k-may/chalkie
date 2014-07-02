@@ -1,5 +1,7 @@
 package com.kevmayo.chalkie.view;
 
+import android.graphics.Rect;
+
 import com.kevmayo.chalkie.base.DisplayObject;
 import com.kevmayo.chalkie.base.math.Point;
 import com.kevmayo.chalkie.events.ChalkieEvent;
@@ -36,7 +38,7 @@ public class HomeBg extends DisplayObject {
 
     private boolean _isAnimatingOut;
     private int _startTime;
-    private int _duration = 2000;
+    private int _duration = 1000;
     private boolean _isAnimatingIn;
 
     public HomeBg() {
@@ -97,19 +99,21 @@ public class HomeBg extends DisplayObject {
     public void draw(Graphics g) {
         super.draw(g);
 
+        Rect rect = getAbsoluteRect();
+
         g.fill(0xff000000);
-        g.moveTo(tL.x, tL.y);
-        g.lineTo(tR.x, tR.y);
-        g.lineTo(bR.x, bR.y);
-        g.lineTo(bL.x, bL.y);
-        g.lineTo(tL.x, tL.y);
+        g.moveTo(rect.left + tL.x, rect.top + tL.y);
+        g.lineTo(rect.left + tR.x, rect.top +tR.y);
+        g.lineTo(rect.left + bR.x, rect.top +bR.y);
+        g.lineTo(rect.left + bL.x, rect.top +bL.y);
+        g.lineTo(rect.left + tL.x, rect.top +tL.y);
         // p.close();
 
         for (int i = 0; i < points.length; i++) {
             if (i == 0)
-                g.moveTo(points[i].x, points[i].y);
+                g.moveTo(rect.left +points[i].x, rect.top +points[i].y);
             else
-                g.lineTo(points[i].x, points[i].y);
+                g.lineTo(rect.left +points[i].x, rect.top +points[i].y);
         }
 
         g.close();
@@ -120,20 +124,27 @@ public class HomeBg extends DisplayObject {
     public void update(float delta) {
         super.update(delta);
 
+        boolean isAniComplete = false;
+
+        //predraw
         if (_isAnimatingOut || _isAnimatingIn) {
             _invalidated = true;
 
             float elapsed = MainView.TIME_ELAPSED - _startTime;
 
-            float r = Expo.easeIn(elapsed, 0.f, 1.f, _duration);
-            r = Math.min(1.f, Math.max(0.f, r));
+            float r = Expo.easeOut(elapsed, 0.f, 1.f, _duration);
+            r = Math.min(1.f, r);
 
             if (r < 1.f)
                 set_ratio(r);
-            else
-                aniComplete();
+            else {
+                set_ratio(1.f);
+                isAniComplete = true;
+            }
         }
-        //update animation
+
+
+        //draw / update animation
         if (_invalidated) {
             if (_isAnimatingOut) {
                 for (int i = 0; i < points.length; i++) {
@@ -146,7 +157,12 @@ public class HomeBg extends DisplayObject {
             }
             _invalidated = false;
         }
+
+        //post draw
+        if (isAniComplete)
+            aniComplete();
     }
+
 
     public void aniComplete() {
         if (_isAnimatingOut)
@@ -172,17 +188,19 @@ public class HomeBg extends DisplayObject {
         _invalidated = true;
     }
 
-    public void start(int time) {
-        if (!_isAnimatingOut) {
-            _startTime = time;
-            _isAnimatingIn = false;
-            _isAnimatingOut = true;
-        }
+    public void start() {
+        _startTime = (int) MainView.TIME_ELAPSED;
+        _isAnimatingIn = false;
+        _isAnimatingOut = true;
     }
 
     public void reset() {
         _startTime = (int) MainView.TIME_ELAPSED;
         _isAnimatingOut = false;
         _isAnimatingIn = true;
+    }
+
+    public boolean isAnimating(){
+        return _isAnimatingIn || _isAnimatingOut;
     }
 }

@@ -1,7 +1,6 @@
 package com.kevmayo.chalkie.events;
 
 public enum EventType {
-
 	STROKE_ADDED,
 	STROKE_REMOVED,
 	MANAGER_ADDED,
@@ -10,5 +9,7 @@ public enum EventType {
     LOAD_COMPLETE, ADDED,
     REGISTER_EVENT, REMOVED,
     LAUNCH_BUTTON_PRESSED,
-    IMAGE_SAVED;
+    IMAGE_SAVED,
+    REQUEST_IMAGE,
+    IMAGE_MENU_CREATED, ASSETS_LOADED, ANIMATION_COMPLETE;
 }

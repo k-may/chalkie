@@ -7,7 +7,20 @@ import com.kevmayo.chalkie.interfaces.IDisplayObject;
  */
 public class RegisterEvent extends ChalkieEvent {
 
+    private final EventType registerType ;
+private IDisplayObject listener;
     public RegisterEvent(IDisplayObject listener, EventType type) {
         super(EventType.REGISTER_EVENT, "registerEvent");
+        this.listener = listener;
+        this.registerType = type;
+
+    }
+
+    public EventType getRegisterType(){
+        return registerType;
+    }
+
+    public IDisplayObject getListener() {
+        return listener;
     }
 }

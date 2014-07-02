@@ -64,10 +64,24 @@ public class AndroidGraphics extends AndroidGraphicsBase<Bitmap> {
     }
 
     @Override
+    public void stroke(int r, int g, int b) {
+        _strokeColor = android.graphics.Color.rgb(r, g, b);
+    }
+
+    @Override
     public void fill(int color) {
         _fillColor = color;
     }
 
+    @Override
+    public void fill(int r, int g, int b) {
+        _fillColor = android.graphics.Color.rgb(r, g, b);
+    }
+
+    @Override
+    public void background(int r, int b, int g) {
+        canvas.drawRGB(r, b, g);
+    }
 
     @Override
     public void background(int color) {
@@ -162,7 +176,7 @@ public class AndroidGraphics extends AndroidGraphicsBase<Bitmap> {
         if (path == null) {
             path = new Path();
             path.setFillType(Path.FillType.EVEN_ODD);
-        }else
+        } else
             path.close();
 
         path.moveTo(x, y);

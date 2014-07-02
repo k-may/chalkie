@@ -5,7 +5,10 @@ import android.util.Log;
 
 import com.kevmayo.chalkie.base.DisplayObject;
 import com.kevmayo.chalkie.base.exceptions.ChalkieException;
+import com.kevmayo.chalkie.events.AddedEvent;
+import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.events.EventType;
+import com.kevmayo.chalkie.events.RemovedEvent;
 import com.kevmayo.chalkie.interfaces.Game;
 import com.kevmayo.chalkie.interfaces.Graphics;
 import com.kevmayo.chalkie.interfaces.IDisplayObject;
@@ -36,6 +39,7 @@ public abstract class Screen implements IScreen {
     protected IDisplayObject _parent;
     protected List<IDisplayObject> _children;
     private Map<String, List<Integer>> _observers;
+    private boolean _disposed = true;
 
     public static String HOME = "home";
     public static String CHALKBOARD = "chalkBoard";
@@ -84,11 +88,11 @@ public abstract class Screen implements IScreen {
         for (int i = 0; i < _children.size(); i++)
             _children.get(i).draw(g);
 
-       // g.text("frameRate : " + MainView.instance.frameRate, 2, 2);
-       // log(String.valueOf(MainView.instance.frameRate));
+        // g.text("frameRate : " + MainView.instance.frameRate, 2, 2);
+        // log(String.valueOf(MainView.instance.frameRate));
     }
 
-    private void log(String msg) {
+    protected void log(String msg) {
         Log.i(getClass().getName(), msg);
     }
 
@@ -104,6 +108,11 @@ public abstract class Screen implements IScreen {
     public IDisplayObject addChild(IDisplayObject child) {
         if (child == null)
             throw new IllegalArgumentException("child can't be null");
+
+        if(_children.contains(child)) {
+            log("child already contained :" + child.getName() + " / " + getName());
+            return child;
+        }
 
         if (child.getParent() != null)
             child.getParent().removeChild(child);
@@ -161,6 +170,7 @@ public abstract class Screen implements IScreen {
         return false;
     }
 
+
     @Override
     public void resize() {
         for (int i = 0; i < _children.size(); i++) {
@@ -170,9 +180,33 @@ public abstract class Screen implements IScreen {
 
     public abstract void pause();
 
-    public abstract void resume();
+    public void resume() {
+        if (_disposed)
+            dispatchAdded(this);
 
-    public abstract void dispose();
+        _disposed = false;
+    }
+
+    private void dispatchAdded(IDisplayObject parent) {
+        for (int i = 0; i < parent.get_numChildren(); i++) {
+            new AddedEvent(parent.get_childAt(i)).dispatch();
+            dispatchAdded(parent.get_childAt(i));
+        }
+    }
+
+    public void dispose() {
+        if (!_disposed)
+            dispatchRemoved(this);
+
+        _disposed = true;
+    }
+
+    private void dispatchRemoved(IDisplayObject parent) {
+        for (int i = 0; i < parent.get_numChildren(); i++) {
+            new RemovedEvent(get_childAt(i)).dispatch();
+            dispatchRemoved(parent.get_childAt(i));
+        }
+    }
 
     public abstract void backButton();
 
@@ -264,10 +298,7 @@ public abstract class Screen implements IScreen {
     }
 
     public void added(DisplayObject child) {
-        if (_observers.containsKey(EventType.ADDED)) {
-            if (_observers.get(EventType.ADDED).contains(child.id))
-                child.notifyEvent(EventType.ADDED);
-        }
+        new AddedEvent(child).dispatch();
     }
 
     protected DisplayObject getChildById(Integer integer) {
@@ -292,6 +323,9 @@ public abstract class Screen implements IScreen {
         return child;
     }
 
+    public void handleAnimationComplete(Animate direction, DisplayObject child) {
+
+    }
 
     public class TouchTarget implements Comparable<TouchTarget> {
 
@@ -308,4 +342,10 @@ public abstract class Screen implements IScreen {
             return this.level - another.level;
         }
     }
+
+    @Override
+    public void notifyEvent(ChalkieEvent evt) {
+
+    }
+
 }

@@ -2,6 +2,7 @@ package com.kevmayo.chalkie.interfaces;
 
 import android.graphics.Rect;
 
+import com.kevmayo.chalkie.events.ChalkieEvent;
 import com.kevmayo.chalkie.interfaces.Input.TouchEvent;
 
 public interface IDisplayObject {
@@ -19,4 +20,5 @@ public interface IDisplayObject {
     int get_numChildren();
     IDisplayObject get_childAt(int i);
 
+    void notifyEvent(ChalkieEvent evt);
 }

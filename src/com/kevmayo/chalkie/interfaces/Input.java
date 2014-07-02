@@ -1,5 +1,7 @@
 package com.kevmayo.chalkie.interfaces;
 
+import com.kevmayo.chalkie.base.math.Point;
+
 import java.util.List;
 
 public interface Input {
@@ -22,6 +24,10 @@ public interface Input {
 		public int x, y;
 		public int pointer;
         public long time;
+
+        public Point getPos() {
+            return new Point(x, y);
+        }
     }
 	
 	public boolean isTouchDown(int pointer);

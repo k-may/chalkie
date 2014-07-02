@@ -1,5 +1,6 @@
 package com.kevmayo.chalkie.interfaces;
 
+import com.kevmayo.chalkie.base.ImagesModel;
 import com.kevmayo.chalkie.view.Screen;
 
 public interface Game {
@@ -23,5 +24,8 @@ public interface Game {
 
     public void saveImage();
 
+    public void disposeImage(Object image);
+
+    public ImagesModel getImagesModel();
 
 }
